@@ -1,5 +1,5 @@
 module.exports = {
-  ATSDClient: require('lib/cliend').ATSDClient,
+  ATSDClient: require('lib/client').ATSDClient,
 
   Entities: require('lib/entities').Entities,
   Metrics: require('lib/metrics').Metrics,
