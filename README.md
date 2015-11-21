@@ -1,6 +1,14 @@
 # ATSD Node.js API client
 
+The ATSD API Client for Node.js enables developers to easily interact with Axibase Time-Series Database, making use of [its advanced API](https://axibase.com/atsd/api/).
+
 ## Installation
+
+This client can be installed using npm:
+
+```
+$ sudo npm install atsd-api-nodejs
+```
 
 ## Usage
 
@@ -77,3 +85,149 @@ The arguments are as follows:
  [Series CSV: Insert](https://axibase.com/atsd/api/#series-csv:-insert)                                       | -
  
 ## Examples
+
+### Setup
+
+```javascript
+var atsd_api = require('atsd-api-nodejs');
+
+var options = {
+  url: '...',
+  user: '...',
+  password: '...'
+};
+
+var entities   = new atsd_api.Entities(options);
+var metrics    = new atsd_api.Metrics(options);
+var series     = new atsd_api.Series(options);
+var properties = new atsd_api.Properties(options);
+var alerts     = new atsd_api.Alerts(options);
+```
+
+### Series
+
+```javascript
+// retrieving all entities
+entities.getAll({}, function (error_entities, _, body_entities) {
+  if (!error_entities) {
+    // choosing the first entity
+    var entity = body_entities[0]['name'];
+
+    console.log('First entity: ' + entity);
+
+    // retrieving all metrics for that entity
+    metrics.getByEntity(entity, {}, function (error_metrics, _, body_metrics) {
+      if (!error_metrics) {
+        // choosing the first metric
+        var metric = body_metrics[0]['name'];
+
+        console.log('First metric: ' + metric);
+
+        // getting data for the chosen entity and metric
+        series.get(
+          {
+            "queries": [
+              {
+                "startDate": "current_hour",
+                "endDate": "current_hour + 10 * second",
+                "timeFormat": "iso",
+                "entity": entity,
+                "metric": metric
+              }
+            ]
+          },
+          function (error_series, _, body_series) {
+            if (!error_series) {
+              var data = body_series['series'][0]['data'];
+ 
+              console.log('Data: ' + JSON.stringify(data));
+            }
+          }
+        );
+      }
+    })
+  }
+});
+```
+
+```
+> First entity: atsd
+> First metric: actions_per_minute
+> Data: [{"d":"2015-11-21T14:00:02.497Z","v":0}]
+```
+
+### Alerts
+
+```javascript
+// updating alerts 'evt-1' and 'evt-2'
+alerts.update(
+  [
+    {
+      "action": "update",
+      "fields": {
+        "acknowledge": true
+      },
+      "alerts": [
+        {"id": "evt-1"},
+        {"id": "evt-2"}
+      ]
+    }
+  ],
+  function(error, response, _) {
+    if (!error) {
+      console.log('Update: ' + response.statusCode);
+    }
+  }
+);
+```
+
+```
+> Update: 200
+```
+
+### Properties
+
+```javascript
+// getting property types of entity 'atsd'
+entities.getPropertyTypes('atsd', {}, function (error, _, body) {
+  if (!error) {
+    console.log('Property types: ' + JSON.stringify(body));
+  }
+});
+```
+
+```
+> Property types: ["jfs","system","disk","cpu","java_method","configuration","network"]
+```
+
+```javascript
+// inserting a property
+properties.insert(
+  [
+    {
+      "type":"type-1",
+      "entity":"entity-1",
+      "key":{"server_name":"server","user_name":"system"},
+      "tags":{"name-1": "value-1"},
+      "timestamp":1000
+    }
+  ],
+  function(error_insert, response, _) {
+    if (!error_insert) {
+      console.log('Insert: ' + response.statusCode);
+
+      // retrieving the same property
+      properties.getByEntityAndType("entity-1", "type-1", {}, function (error_get, _, body) {
+        if (!error_get) {
+          console.log('Properties by entity and type: ' + JSON.stringify(body));
+        }
+      });
+    }
+  }
+);
+```
+
+```
+> Insert: 200
+> Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1000}]
+```
