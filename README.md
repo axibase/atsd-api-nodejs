@@ -182,7 +182,7 @@ series.query({
 ```
 
 ```
-Detail with versions: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50,"version":{"source":"gateway-1","status":"provisional"}}]}]
+> Detail with versions: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50,"version":{"source":"gateway-1","status":"provisional"}}]}]
 ```
 
 ```javascript
