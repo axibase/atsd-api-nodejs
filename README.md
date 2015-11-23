@@ -208,8 +208,7 @@ properties.insert(
       "type":"type-1",
       "entity":"entity-1",
       "key":{"server_name":"server","user_name":"system"},
-      "tags":{"name-1": "value-1"},
-      "timestamp":1000
+      "tags":{"name-1": "value-1"}
     }
   ],
   function(error_insert, response, _) {
@@ -229,5 +228,5 @@ properties.insert(
 
 ```
 > Insert: 200
-> Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1000}]
+> Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1448122917843}]
 ```
