@@ -53,6 +53,9 @@ The arguments are as follows:
 
  API method                                                                                                   | Client function
 --------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
+ **Series**                                                                                                   | `Series(options)`
+ [Series: Query](https://axibase.com/atsd/api/#series:-query)                                                 | `Series.get(payload, callback)`
+ [Series: Insert](https://axibase.com/atsd/api/#series:-insert)                                               | `Series.insert(payload, callback)`
  **Alerts**                                                                                                   | `Alerts(options)`
  [Alerts: Query](https://axibase.com/atsd/api/#alerts:-query)                                                 | `Alerts.get(payload, callback)`
  [Alerts: Update](https://axibase.com/atsd/api/#alerts:-update)                                               | `Alerts.update(payload, callback)`
@@ -78,11 +81,6 @@ The arguments are as follows:
  [Properties: Property Types](https://axibase.com/atsd/api/#properties:-property-types)                       | `Properties.getPropertyTypes(entity, params, callback)`
  [Properties: Insert](https://axibase.com/atsd/api/#properties:-insert)                                       | `Properties.insert(payload, callback)`
  [Properties: Batch](https://axibase.com/atsd/api/#properties:-batch)                                         | `Properties.batch(payload, callback)`
- **Series**                                                                                                   | `Series(options)`
- [Series: Query](https://axibase.com/atsd/api/#series:-query)                                                 | `Series.get(payload, callback)`
- [Series: Insert](https://axibase.com/atsd/api/#series:-insert)                                               | `Series.insert(payload, callback)`
- [Series URL: Query](https://axibase.com/atsd/api/#series-url:-query)                                         | -
- [Series CSV: Insert](https://axibase.com/atsd/api/#series-csv:-insert)                                       | -
 
 There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
 
@@ -92,9 +90,7 @@ There is also a number of convenience functions dedicated to making some request
  `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc. | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`) or a Date object
  `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                    | same as above
 
-## Examples
-
-### Setup
+## Setup
 
 ```javascript
 var atsd_api = require('atsd-api-nodejs');
@@ -112,57 +108,9 @@ var properties = new atsd_api.Properties(options);
 var alerts     = new atsd_api.Alerts(options);
 ```
 
+## Examples
+
 ### Series
-
-```javascript
-// retrieving all entities
-entities.getAll({}, function (error_entities, _, body_entities) {
-  if (!error_entities) {
-    // choosing the first entity
-    var entity = body_entities[0]['name'];
-
-    console.log('First entity: ' + entity);
-
-    // retrieving all metrics for that entity
-    metrics.getByEntity(entity, {}, function (error_metrics, _, body_metrics) {
-      if (!error_metrics) {
-        // choosing the first metric
-        var metric = body_metrics[0]['name'];
-
-        console.log('First metric: ' + metric);
-
-        // getting data for the chosen entity and metric
-        series.get(
-          {
-            "queries": [
-              {
-                "startDate": "current_hour",
-                "endDate": "current_hour + 10 * second",
-                "timeFormat": "iso",
-                "entity": entity,
-                "metric": metric
-              }
-            ]
-          },
-          function (error_series, _, body_series) {
-            if (!error_series) {
-              var data = body_series['series'][0]['data'];
- 
-              console.log('Data: ' + JSON.stringify(data));
-            }
-          }
-        );
-      }
-    })
-  }
-});
-```
-
-```
-> First entity: atsd
-> First metric: actions_per_minute
-> Data: [{"d":"2015-11-21T14:00:02.497Z","v":0}]
-```
 
 ```javascript
 // inserting series data with versioning
@@ -276,4 +224,56 @@ properties.insert(
 ```
 > Insert: 200
 > Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1448122917843}]
+```
+
+### Series dump
+
+```javascript
+// retrieving all entities
+entities.getAll({}, function (error_entities, _, body_entities) {
+  if (!error_entities) {
+    // choosing the first entity
+    var entity = body_entities[0]['name'];
+
+    console.log('First entity: ' + entity);
+
+    // retrieving all metrics for that entity
+    metrics.getByEntity(entity, {}, function (error_metrics, _, body_metrics) {
+      if (!error_metrics) {
+        // choosing the first metric
+        var metric = body_metrics[0]['name'];
+
+        console.log('First metric: ' + metric);
+
+        // getting data for the chosen entity and metric
+        series.get(
+          {
+            "queries": [
+              {
+                "startDate": "current_hour",
+                "endDate": "current_hour + 10 * second",
+                "timeFormat": "iso",
+                "entity": entity,
+                "metric": metric
+              }
+            ]
+          },
+          function (error_series, _, body_series) {
+            if (!error_series) {
+              var data = body_series['series'][0]['data'];
+ 
+              console.log('Data: ' + JSON.stringify(data));
+            }
+          }
+        );
+      }
+    })
+  }
+});
+```
+
+```
+> First entity: atsd
+> First metric: actions_per_minute
+> Data: [{"d":"2015-11-21T14:00:02.497Z","v":0}]
 ```
