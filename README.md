@@ -7,7 +7,7 @@ The ATSD API Client for Node.js enables developers to easily interact with Axiba
 This client can be installed using npm:
 
 ```
-$ sudo npm install atsd-api-nodejs
+$ sudo npm install atsd-api
 ```
 
 ## Usage
@@ -96,7 +96,7 @@ For statistics and units used to aggregate the data through series queries there
 ## Setup
 
 ```javascript
-var atsd_api = require('atsd-api-nodejs');
+var atsd_api = require('atsd-api');
 
 var options = {
   url: '...',
