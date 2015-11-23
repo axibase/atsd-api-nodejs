@@ -91,6 +91,8 @@ There is also a number of convenience functions dedicated to making some request
  `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                                                          | same as above
  `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. | 
 
+For statistics and units used to aggregate the data through series queries there exist corresponding "enumerations" in class Series: `Series.statistic` and `Series.unit`.
+
 ## Setup
 
 ```javascript
