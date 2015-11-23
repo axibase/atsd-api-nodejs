@@ -116,32 +116,13 @@ var alerts     = new atsd_api.Alerts(options);
 ### Series
 
 ```javascript
-// inserting series data with versioning
-series.insertData('temperature', 'sensor001', {},
-  [
-    {
-      'd': '2015-11-23T08:19:00.000Z',
-      'v': 51,
-      'version': {
-        'status': 'provisional',
-        'source': 'gateway-1'
-      }
-    }
-  ],
-  function(error_insert, response, _) {
+// inserting series data without versions
+series.insertData('temperature', 'sensor001', {}, [
+    {'d': '2015-11-23T08:19:00.000Z', 'v': 51},
+    {'d': '2015-11-23T08:20:00.000Z', 'v': 52}
+  ], function(error_insert, response, _) {
     if (!error_insert) {
       console.log('Insert: ' + response.statusCode);
-
-      // retrieving the same data
-      series.queryDetail(
-        'temperature', 'sensor001', {},
-        'current_hour', 'next_hour',
-        function(error_detail, _, body) {
-          if (!error_detail) {
-            console.log('Detail: ' + JSON.stringify(body));
-          }
-        }
-      );
     }
   }
 );
@@ -149,7 +130,59 @@ series.insertData('temperature', 'sensor001', {},
 
 ```
 > Insert: 200
-> Detail: [{"entity":"sensor001","metric":"temperature","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51,"version":{"source":"gateway-1","status":"provisional"}}]}]
+```
+
+```javascript
+// inserting series data with versions
+series.insertData('temperature', 'sensor001', {}, [
+    {'d': '2015-11-23T08:21:00.000Z', 'v': 50, 'version': {'status': 'provisional', 'source': 'gateway-1'}}
+  ], function(error_insert, response, _) {
+    if (!error_insert) {
+      console.log('Insert with versions: ' + response.statusCode);
+    }
+  }
+);
+```
+
+```
+> Insert with versions: 200
+```
+
+```javascript
+// retrieving data without versions
+series.queryDetail(
+  'temperature', 'sensor001', {},
+  'current_day', 'next_day',
+  function(error_detail, _, body) {
+    if (!error_detail) {
+      console.log('Detail: ' + JSON.stringify(body));
+    }
+  }
+);
+```
+
+```
+> Detail: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50}]}]
+```
+
+```javascript
+// retrieving data with versions
+series.query({
+    'metric': 'temperature',
+    'entity': 'sensor001',
+    'startDate': 'current_day',
+    'endDate': 'next_day',
+    'versioned': true
+  }, function(error_detail, _, body) {
+    if (!error_detail) {
+      console.log('Detail with versions: ' + JSON.stringify(body));
+    }
+  }
+);
+```
+
+```
+Detail with versions: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50,"version":{"source":"gateway-1","status":"provisional"}}]}]
 ```
 
 ```javascript
