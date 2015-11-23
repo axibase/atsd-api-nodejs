@@ -117,18 +117,19 @@ var alerts     = new atsd_api.Alerts(options);
 series.insert(
   [
     {
-      "entity": "e-vers",
-      "metric": "m-vers",
+      "entity": "sensor001",
+      "metric": "temperature",
       "data": [
         {
           "t": 1447834771665,
-          "v": 513,
+          "v": 51,
           "version": {
             "status": "provisional",
-            "source": "t540p"
+            "source": "gateway-1"
           }
         }
-      ]
+      ],
+      "limit": 1
     }
   ],
   function(error_insert, response, _) {
@@ -136,7 +137,7 @@ series.insert(
       console.log('Insert: ' + JSON.stringify(response.statusCode));
 
       // retrieving the same data
-      series.queryDetail('m-vers', 'e-vers', {}, 'current_year', 'next_year', function(error_detail, _, body) {
+      series.queryDetail('temperature', 'sensor001', {}, 'current_year', 'next_year', function(error_detail, _, body) {
         if (!error_detail) {
           console.log('Detail: ' + JSON.stringify(body));
         }
@@ -148,7 +149,7 @@ series.insert(
 
 ```
 > Insert: 200
-> Detail: [{"entity":"e-vers","metric":"m-vers","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"t":1447834771665,"v":513,"version":{"source":"t540p","status":"provisional"}}]}]
+> Detail: [{"entity":"sensor001","metric":"temperature","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-18T08:19:31.665Z","v":51,"version":{"source":"gateway-1","status":"provisional"}}]}]
 ```
 
 ### Alerts
