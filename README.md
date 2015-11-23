@@ -156,6 +156,45 @@ entities.getAll({}, function (error_entities, _, body_entities) {
 > Data: [{"d":"2015-11-21T14:00:02.497Z","v":0}]
 ```
 
+```javascript
+// inserting series data with versioning
+series.insert(
+  [
+    {
+      "entity": "e-vers",
+      "metric": "m-vers",
+      "data": [
+        {
+          "t": 1447834771665,
+          "v": 513,
+          "version": {
+            "status": "provisional",
+            "source": "t540p"
+          }
+        }
+      ]
+    }
+  ],
+  function(error_insert, response, _) {
+    if (!error_insert) {
+      console.log('Insert: ' + JSON.stringify(response.statusCode));
+
+      // retrieving the same data
+      series.queryDetail('m-vers', 'e-vers', {}, 'current_year', 'next_year', function(error_detail, _, body) {
+        if (!error_detail) {
+          console.log('Detail: ' + JSON.stringify(body));
+        }
+      });
+    }
+  }
+);
+```
+
+```
+> Insert: 200
+> Detail: [{"entity":"e-vers","metric":"m-vers","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"t":1447834771665,"v":513,"version":{"source":"t540p","status":"provisional"}}]}]
+```
+
 ### Alerts
 
 ```javascript
