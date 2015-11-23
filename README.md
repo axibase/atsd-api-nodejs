@@ -154,8 +154,8 @@ series.queryStatistic(
   'cpu_busy', 'nurswgvml007', {},
   'previous_day', 'current_day',
   series.statistic.AVG, {'count': 6, 'unit': series.unit.HOUR},
-  function(error_detail, _, body) {
-    if (!error_detail) {
+  function(error, _, body) {
+    if (!error) {
       console.log('Average: ' + JSON.stringify(body));
     }
   }
