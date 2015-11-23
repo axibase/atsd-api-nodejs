@@ -84,11 +84,12 @@ The arguments are as follows:
 
 There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
 
- Client function                                                                                | Equivalent to                                                                                    | Note
-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------
- `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                       | `timeFormat` for response is set to `iso`
- `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc. | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`) or a Date object
- `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                    | same as above
+ Client function                                                                                | Equivalent to                                                                                                                          | Note
+------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------
+ `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                                                             | `timeFormat` for response is set to `iso`
+ `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`) or a Date object
+ `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                                                          | same as above
+ `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. | 
 
 ## Setup
 
