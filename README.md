@@ -157,7 +157,7 @@ series.insertData('temperature', 'sensor001', {},
 series.queryStatistic(
   'cpu_busy', 'nurswgvml007', {},
   'previous_day', 'current_day',
-  series.statistic.AVG, {'count': 6, 'unit': series.unit.HOUR},
+  Series.statistic.AVG, {'count': 6, 'unit': Series.unit.HOUR},
   function(error, _, body) {
     if (!error) {
       console.log('Average: ' + JSON.stringify(body));
