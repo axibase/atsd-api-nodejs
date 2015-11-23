@@ -133,11 +133,15 @@ series.insertData('temperature', 'sensor001', {},
       console.log('Insert: ' + response.statusCode);
 
       // retrieving the same data
-      series.queryDetail('temperature', 'sensor001', {}, 'current_hour', 'next_hour', function(error_detail, _, body) {
-        if (!error_detail) {
-          console.log('Detail: ' + JSON.stringify(body));
+      series.queryDetail(
+        'temperature', 'sensor001', {},
+        'current_hour', 'next_hour',
+        function(error_detail, _, body) {
+          if (!error_detail) {
+            console.log('Detail: ' + JSON.stringify(body));
+          }
         }
-      });
+      );
     }
   }
 );
@@ -226,11 +230,14 @@ properties.insert(
       console.log('Insert: ' + response.statusCode);
 
       // retrieving the same property
-      properties.getByEntityAndType('entity-1', 'type-1', {}, function (error_get, _, body) {
-        if (!error_get) {
-          console.log('Properties by entity and type: ' + JSON.stringify(body));
+      properties.getByEntityAndType(
+        'entity-1', 'type-1', {},
+        function (error_get, _, body) {
+          if (!error_get) {
+            console.log('Properties by entity and type: ' + JSON.stringify(body));
+          }
         }
-      });
+      );
     }
   }
 );
@@ -260,7 +267,9 @@ entities.getAll({}, function (error_entities, _, body_entities) {
         console.log('First metric: ' + metric);
 
         // getting data for the chosen entity and metric
-        series.queryDetail(metric, entity, {}, 'current_hour', 'current_hour + 10 * second',
+        series.queryDetail(
+          metric, entity, {},
+          'current_hour', 'current_hour + 10 * second',
           function (error_series, _, body_series) {
             if (!error_series) {
               var data = body_series[0]['data'];
