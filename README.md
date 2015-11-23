@@ -230,7 +230,6 @@ properties.insert(
 ### Series dump
 
 ```javascript
-// retrieving all entities
 entities.getAll({}, function (error_entities, _, body_entities) {
   if (!error_entities) {
     // choosing the first entity
@@ -247,22 +246,11 @@ entities.getAll({}, function (error_entities, _, body_entities) {
         console.log('First metric: ' + metric);
 
         // getting data for the chosen entity and metric
-        series.get(
-          {
-            "queries": [
-              {
-                "startDate": "current_hour",
-                "endDate": "current_hour + 10 * second",
-                "timeFormat": "iso",
-                "entity": entity,
-                "metric": metric
-              }
-            ]
-          },
+        series.queryDetail(metric, entity, {}, "current_hour", "current_hour + 10 * second",
           function (error_series, _, body_series) {
             if (!error_series) {
-              var data = body_series['series'][0]['data'];
- 
+              var data = body_series[0]['data'];
+
               console.log('Data: ' + JSON.stringify(data));
             }
           }
