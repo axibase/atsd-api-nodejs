@@ -114,22 +114,15 @@ var alerts     = new atsd_api.Alerts(options);
 
 ```javascript
 // inserting series data with versioning
-series.insert(
+series.insertData('temperature', 'sensor001', {},
   [
     {
-      "entity": "sensor001",
-      "metric": "temperature",
-      "data": [
-        {
-          "t": 1447834771665,
-          "v": 51,
-          "version": {
-            "status": "provisional",
-            "source": "gateway-1"
-          }
-        }
-      ],
-      "limit": 1
+      'd': '2015-11-23T08:19:00.000Z',
+      'v': 51,
+      'version': {
+        'status': 'provisional',
+        'source': 'gateway-1'
+      }
     }
   ],
   function(error_insert, response, _) {
@@ -149,7 +142,7 @@ series.insert(
 
 ```
 > Insert: 200
-> Detail: [{"entity":"sensor001","metric":"temperature","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-18T08:19:31.665Z","v":51,"version":{"source":"gateway-1","status":"provisional"}}]}]
+> Detail: [{"entity":"sensor001","metric":"temperature","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51,"version":{"source":"gateway-1","status":"provisional"}}]}]
 ```
 
 ### Alerts
@@ -159,13 +152,13 @@ series.insert(
 alerts.update(
   [
     {
-      "action": "update",
-      "fields": {
-        "acknowledge": true
+      'action': 'update',
+      'fields': {
+        'acknowledge': true
       },
-      "alerts": [
-        {"id": "evt-1"},
-        {"id": "evt-2"}
+      'alerts': [
+        {'id': 'evt-1'},
+        {'id': 'evt-2'}
       ]
     }
   ],
@@ -201,10 +194,10 @@ entities.getPropertyTypes('atsd', {}, function (error, _, body) {
 properties.insert(
   [
     {
-      "type":"type-1",
-      "entity":"entity-1",
-      "key":{"server_name":"server","user_name":"system"},
-      "tags":{"name-1": "value-1"}
+      'type':'type-1',
+      'entity':'entity-1',
+      'key':{'server_name':'server','user_name':'system'},
+      'tags':{'name-1': 'value-1'}
     }
   ],
   function(error_insert, response, _) {
@@ -212,7 +205,7 @@ properties.insert(
       console.log('Insert: ' + response.statusCode);
 
       // retrieving the same property
-      properties.getByEntityAndType("entity-1", "type-1", {}, function (error_get, _, body) {
+      properties.getByEntityAndType('entity-1', 'type-1', {}, function (error_get, _, body) {
         if (!error_get) {
           console.log('Properties by entity and type: ' + JSON.stringify(body));
         }
@@ -246,7 +239,7 @@ entities.getAll({}, function (error_entities, _, body_entities) {
         console.log('First metric: ' + metric);
 
         // getting data for the chosen entity and metric
-        series.queryDetail(metric, entity, {}, "current_hour", "current_hour + 10 * second",
+        series.queryDetail(metric, entity, {}, 'current_hour', 'current_hour + 10 * second',
           function (error_series, _, body_series) {
             if (!error_series) {
               var data = body_series[0]['data'];
