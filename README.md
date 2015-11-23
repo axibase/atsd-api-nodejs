@@ -83,7 +83,15 @@ The arguments are as follows:
  [Series: Insert](https://axibase.com/atsd/api/#series:-insert)                                               | `Series.insert(payload, callback)`
  [Series URL: Query](https://axibase.com/atsd/api/#series-url:-query)                                         | -
  [Series CSV: Insert](https://axibase.com/atsd/api/#series-csv:-insert)                                       | -
- 
+
+There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
+
+ Client function                                                                                | Equivalent to                                                                                    | Note
+------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------
+ `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                       | -
+ `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc. | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`) or a Date object
+ `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                    | same as above
+
 ## Examples
 
 ### Setup
