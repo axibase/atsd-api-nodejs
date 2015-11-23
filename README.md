@@ -128,10 +128,10 @@ series.insertData('temperature', 'sensor001', {},
   ],
   function(error_insert, response, _) {
     if (!error_insert) {
-      console.log('Insert: ' + JSON.stringify(response.statusCode));
+      console.log('Insert: ' + response.statusCode);
 
       // retrieving the same data
-      series.queryDetail('temperature', 'sensor001', {}, 'current_year', 'next_year', function(error_detail, _, body) {
+      series.queryDetail('temperature', 'sensor001', {}, 'current_hour', 'next_hour', function(error_detail, _, body) {
         if (!error_detail) {
           console.log('Detail: ' + JSON.stringify(body));
         }
@@ -144,6 +144,24 @@ series.insertData('temperature', 'sensor001', {},
 ```
 > Insert: 200
 > Detail: [{"entity":"sensor001","metric":"temperature","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51,"version":{"source":"gateway-1","status":"provisional"}}]}]
+```
+
+```javascript
+// retrieving yesterday's data averaged by 6 hours
+series.queryStatistic(
+  'cpu_busy', 'nurswgvml007', {},
+  'previous_day', 'current_day',
+  'AVG', {'count': 6, 'unit': 'HOUR'},
+  function(error_detail, _, body) {
+    if (!error_detail) {
+      console.log('Average: ' + JSON.stringify(body));
+    }
+  }
+);
+```
+
+```
+> Average: [{"entity":"nurswgvml007","metric":"cpu_busy","tags":{},"type":"HISTORY","aggregate":{"type":"AVG","period":{"count":6,"unit":"HOUR"}},"data":[{"d":"2015-11-22T00:00:00.000Z","v":18.35364243323441},{"d":"2015-11-22T06:00:00.000Z","v":14.058392592592591},{"d":"2015-11-22T12:00:00.000Z","v":13.460140845070423},{"d":"2015-11-22T18:00:00.000Z","v":13.851594955489615}]}]
 ```
 
 ### Alerts
