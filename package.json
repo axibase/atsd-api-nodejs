@@ -1,6 +1,6 @@
 {
   "name": "atsd-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Axibase Time-Series Database Client for Node.js",
   "author": "Mark Ezhkov <markezhkov@gmail.com>",
   "repository": {
