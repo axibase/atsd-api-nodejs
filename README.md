@@ -1,6 +1,6 @@
 # ATSD Node.js API client
 
-The ATSD API Client for Node.js enables developers to easily interact with Axibase Time-Series Database, making use of [its advanced API](https://axibase.com/atsd/api/).
+The ATSD API Client for Node.js enables developers to easily interact with Axibase Time Series Database through its [Data](https://github.com/axibase/atsd-docs/blob/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd-docs/blob/master/api/meta/README.md) API.
 
 ## Installation
 
