@@ -1,10 +1,8 @@
 {
   "name": "atsd-api",
   "version": "0.0.2",
-
   "description": "Axibase Time-Series Database Client for Node.js",
   "author": "Mark Ezhkov <markezhkov@gmail.com>",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/axibase/atsd-api-nodejs.git"
@@ -13,6 +11,10 @@
     "url": "https://github.com/axibase/atsd-api-nodejs/issues"
   },
   "main": "index.js",
-
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "lodash": "~4.13.1",
+    "request": "~2.72.0"
+  }
 }
