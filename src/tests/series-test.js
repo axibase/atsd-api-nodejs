@@ -6,7 +6,9 @@ var Series = require('../../lib/series').Series;
 /**
  * @test test base query
  */
+var options =  {
 
+};
 describe('SeriesGetTest', function () {
 
     it('test series get query', function () {
