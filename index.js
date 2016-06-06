@@ -1,11 +1,12 @@
+'use strict';
 module.exports = {
-  ATSDClient: require('./lib/client').ATSDClient,
+    ATSDClient: require('./src/lib/client').ATSDClient,
 
-  Entities: require('./lib/entities').Entities,
-  Metrics: require('./lib/metrics').Metrics,
+    Entities: require('./src/lib/entities').Entities,
+    Metrics: require('./src/lib/metrics').Metrics,
 
-  Properties: require('./lib/properties').Properties,
-  Alerts: require('./lib/alerts').Alerts,
+    Properties: require('./src/lib/properties').Properties,
+    Alerts: require('./src/lib/alerts').Alerts,
 
-  Series: require('./lib/series').Series
+    Series: require('./src/lib/series').Series
 };

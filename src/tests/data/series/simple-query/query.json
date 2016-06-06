@@ -1,0 +1,8 @@
+[
+  {
+    "startDate": "2016-02-22T13:37:00Z",
+    "endDate": "2016-02-22T13:40:00Z",
+    "entity": "nurswgvml007",
+    "metric": "mpstat.cpu_busy"
+  }
+]

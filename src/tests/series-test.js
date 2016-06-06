@@ -1,39 +1,38 @@
+'use strict';
+
 var chai = require('chai');
 var expect = chai.expect; // we are using the "expect" style of Chai
-var Series = require('../../lib/series').Series;
+var Series = require('../lib/series').Series;
+var fs = require('fs');
+var testOptionsPath = __dirname + '/test-options.json';
+var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
 
-
-/**
- * @test test base query
- */
-var options =  {
-
-};
-describe('SeriesGetTest', function () {
-
-    it('test series get query', function () {
-        var series = new Series(options);
-        var query = {
-            "startDate": "2016-02-22T13:37:00Z",
-            "endDate": "2016-02-22T13:40:00Z",
-            "entity": "nurswgvml007",
-            "metric": "mpstat.cpu_busy"
-        };
-        var expected_response = [
-            {
-                "entity": "nurswgvml007",
-                "metric": "mpstat.cpu_busy",
-                "tags": {},
-                "type": "HISTORY",
-                "aggregate": {
-                    "type": "DETAIL"
-                },
-                "data": []
+describe('Series Test', function() {
+    function correctBody(body) {
+        for (var i = 0; i < body.length; i++) {
+            var series = body[i];
+            if (!(typeof (series) !== 'undefined' &&
+                typeof (series.entity) !== 'undefined' &&
+                typeof (series.metric) !== 'undefined')) {
+                return false;
             }
-        ];
-        series.get(query, function (error, response, data) {
-            console.log(data);
-            expect(data).to.deep.equal(expected_response);
+        }
+        return true;
+    }
+
+    var series = new Series(options);
+
+    it('test series get query', function() {
+        expect(series !== null).to.equal(true);
+    });
+
+    it('test correct query', function(done) {
+        var queryPath = __dirname + '/data/series/simple-query/query.json';
+        var query = JSON.parse(fs.readFileSync(queryPath, 'utf-8'));
+        series.query(query, function(error, response, body) {
+            console.log(body);
+            expect(!error && (response.statusCode === 200) && correctBody(body)).to.equal(true);
+            done();
         });
     });
 });
