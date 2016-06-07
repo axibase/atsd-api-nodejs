@@ -66,7 +66,7 @@ Series.prototype.query = function(payload, callback) {
  *
  * @param {String} metric - name of metric
  * @param {String} entity - name of entity
- * @param {Array} tags - list of tags
+ * @param {Array} tags - tags dictionary
  * @param {Date} startTime - start time of selected metric
  * @param {Date} endTime - end time of selected metric
  * @param {Function} callback - result callback function with response, error and list of selected series
@@ -97,10 +97,20 @@ Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime
     });
 };
 
+/**
+ * Special method to select series with statistics param.
+ *
+ * @param {String} metric - name of metric
+ * @param {String} entity - name of entity
+ * @param {Object}tags -  tags dictionary
+ * @param {Date} startTime -
+ * @param {Date} endTime
+ * @param {String} statistic
+ * @param {String} period
+ * @param {Function} callback
+ */
 Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endTime, statistic, period, callback) {
-    var path = 'series';
-
-    var query = {
+    var q = {
         'metric': metric,
         'entity': entity,
         'tags': tags,
@@ -119,17 +129,13 @@ Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endT
         endTime = endTime.getTime();
     }
 
-    query[typeof startTime === 'string' ? 'startDate' : 'startTime'] = startTime;
-    query[typeof startTime === 'string' ? 'endDate' : 'endTime'] = endTime;
+    q[typeof startTime === 'string' ? 'startDate' : 'startTime'] = startTime;
+    q[typeof startTime === 'string' ? 'endDate' : 'endTime'] = endTime;
 
-    var payload = {
-        'queries': [
-            query
-        ]
-    };
-
-    this.postRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body.series !== undefined ? body.series : []);
+    var payload = [];
+    payload.push(q);
+    this.query(payload, function(error, response, body) {
+        callback(error, response, body[0]);
     });
 };
 

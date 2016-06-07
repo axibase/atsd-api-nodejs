@@ -77,4 +77,28 @@ describe('Series Test', function() {
                 done();
             });
     });
+
+    it('test queryStatistic', function(done) {
+        var payload = {
+            metric: 'jvm_memory_used',
+            entity: 'atsd',
+            tags: {},
+            startTime: new Date('2016-06-07T00:00:00'),
+            endTime: new Date()
+        };
+        series.queryStatistic(payload.metric,
+            payload.entity,
+            payload.tags,
+            payload.startTime,
+            payload.endTime,
+            Series.statistic.AVG,
+            {
+                count: 6,
+                unit: Series.unit.HOUR
+            },
+            function(error, response, series) {
+                expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
+                done();
+            });
+    });
 });
