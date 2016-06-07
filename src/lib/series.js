@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * API methods for ATSD Series component
  * @author Igor Shmagrinskiy
@@ -46,7 +45,7 @@ Series.unit = {
 };
 
 /**
- * Simple post to series/query on your atsd instance
+ * Retrieve series objects containing time:value arrays for specified filters
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md Series Query}
  *
  * @param {Array} payload  - body of queries
@@ -142,8 +141,13 @@ Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endT
     });
 };
 
-// Series: Insert
-// https://axibase.com/atsd/api/#series:-insert
+/**
+ * Insert a timestamped array of numeric samples for a given metric, entity, and series tags.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/insert.md Series Insert}
+ *
+ * @param {Object} payload
+ * @param {Function} callback
+ */
 Series.prototype.insert = function(payload, callback) {
     var path = 'series/insert';
 
@@ -152,6 +156,17 @@ Series.prototype.insert = function(payload, callback) {
     });
 };
 
+/**
+ * /**
+ * Insert a timestamped array of numeric samples for a given metric, entity, and series tags.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/insert.md Series Insert}
+ *
+ * @param {Strting} metric - name of metric
+ * @param {String} entity - name of entity
+ * @param {Object} tags - tags dicrionary
+ * @param {Object} data - array of added metric
+ * @param {Function} callback - result callback function
+ */
 Series.prototype.insertData = function(metric, entity, tags, data, callback) {
     var path = 'series/insert';
 
