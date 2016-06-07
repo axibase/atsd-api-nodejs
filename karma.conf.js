@@ -6,15 +6,19 @@ module.exports = function(config) {
         files: [
             'src/lib/*.js'
         ],
-        exclude: [
-        ],
-        preprocessors: {},
-        reporters: ['dots'],
+        exclude: [],
+        preprocessors: {
+            'src/lib/*.js': ['coverage']
+        },
+        coverageReporter: {type: 'html', dir: 'coverage/'},
+        reporters: ['dots', 'progress', 'coverage'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['Chrome'],
+        plugins: ['karma-mocha', 'karma-coverage', 'karma-phantomjs-launcher'],
+        browsers: ['PhantomJS'],
         singleRun: true
+
     });
 };

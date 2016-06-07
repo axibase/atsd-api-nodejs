@@ -19,9 +19,7 @@
     "jscs": "~3.0.4",
     "pre-commit": "~1.1.3",
     "jshint": "~2.9.2",
-    "gulp": "~3.9.1",
-    "istanbul": "~0.4.3",
-    "babel": "~6.5.2"
+    "istanbul": "~0.4.3"
   },
   "scripts": {
     "info": "echo 'npm as a build tool'",
