@@ -1,0 +1,12 @@
+[
+  {
+    "metrics": [
+      "disk_used_percent"
+    ],
+    "entity": "nurswgvml006",
+    "interval": {
+      "count": 1,
+      "unit": "HOUR"
+    }
+  }
+]

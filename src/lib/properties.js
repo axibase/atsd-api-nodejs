@@ -55,7 +55,7 @@ Properties.prototype.getTypesByEntity = function(entity, callback) {
  */
 
 Properties.prototype.getPropertyTypes = function(entity, callback) {
-    var path = 'properties/' + entity + '/types';
+    var path = 'alerts/' + entity + '/types';
 
     this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
@@ -63,7 +63,7 @@ Properties.prototype.getPropertyTypes = function(entity, callback) {
 };
 
 /**
- * Insert an array of properties.
+ * Insert an array of alerts.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/properties/insert.md Insert}
  *
  * @param {Object} payload - body of the request

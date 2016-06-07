@@ -51,11 +51,11 @@ describe('Series Test', function() {
 
     var series = new Series(options);
 
-    it('test series get query', function() {
+    it('series intialized', function() {
         expect(series !== null).to.equal(true);
     });
 
-    it('test correct query', function(done) {
+    it('query', function(done) {
         var queryPath = testDataQueryPath + '/query/query.json';
         var query = JSON.parse(fs.readFileSync(queryPath, 'utf-8'));
         series.query(query, function(error, response, series) {
@@ -64,7 +64,7 @@ describe('Series Test', function() {
         });
     });
 
-    it('test queryDetail', function(done) {
+    it('queryDetail', function(done) {
         var payload = {
             metric: 'jvm_memory_used',
             entity: 'atsd',
@@ -83,7 +83,7 @@ describe('Series Test', function() {
             });
     });
 
-    it('test queryStatistic', function(done) {
+    it('queryStatistic', function(done) {
         var payload = {
             metric: 'jvm_memory_used',
             entity: 'atsd',
@@ -107,11 +107,11 @@ describe('Series Test', function() {
             });
     });
 
-    it('test insert', function(done) {
+    it('insert', function(done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/simple.json'));
 
         series.insert(payload, function(error, response) {
-            expect(response.statusCode === 200).to.equal(true);
+            expect(response.statusCode).to.equal(200);
             done();
         });
     });

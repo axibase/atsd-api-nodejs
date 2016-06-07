@@ -1,0 +1,12 @@
+[
+  {
+    "entity": "nurswgvml007",
+    "type": "logger",
+    "limit": 5,
+    "endDate": "now",
+    "interval": {
+      "count": 30,
+      "unit": "MINUTE"
+    }
+  }
+]

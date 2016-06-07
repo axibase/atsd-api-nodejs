@@ -1,7 +1,12 @@
-[{
-  "entity": "nurswgvml007",
-  "metric": "mpstat.cpu_busy",
-  "data": [
-    { "t": 1462427358127, "v": 22.0 }
-  ]
-}]
+[
+  {
+    "entity": "nurswgvml007",
+    "metric": "mpstat.cpu_busy",
+    "data": [
+      {
+        "t": 1462427358127,
+        "v": 22.0
+      }
+    ]
+  }
+]

@@ -168,8 +168,6 @@ Series.prototype.insert = function(payload, callback) {
  * @param {Function} callback - result callback function
  */
 Series.prototype.insertData = function(metric, entity, tags, data, callback) {
-    var path = 'series/insert';
-
     var payload = [
         {
             'metric': metric,
