@@ -107,7 +107,7 @@ describe('Series Test', function() {
             });
     });
 
-    it('test queryStatistic', function(done) {
+    it('test insert', function(done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/simple.json'));
 
         series.insert(payload, function(error, response) {

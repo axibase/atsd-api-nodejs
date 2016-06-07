@@ -179,7 +179,7 @@ Series.prototype.insertData = function(metric, entity, tags, data, callback) {
         }
     ];
 
-    this.query(payload, function(error, response, body) {
+    this.insert(payload, function(error, response, body) {
         callback(error, response, body);
     });
 };
