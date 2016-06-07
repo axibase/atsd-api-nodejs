@@ -1,11 +1,16 @@
 'use strict';
 
+/**
+ * @author Igor Shmagrinskiy <unrealwork@gmail.com>
+ */
+
 var chai = require('chai');
 var expect = chai.expect; // we are using the 'expect' style of Chai
 var Series = require('../lib/series').Series;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
+var testDataQueryPath = __dirname + '/data/series';
 
 describe('Series Test', function() {
 
@@ -51,7 +56,7 @@ describe('Series Test', function() {
     });
 
     it('test correct query', function(done) {
-        var queryPath = __dirname + '/data/series/simple-query/query.json';
+        var queryPath = testDataQueryPath + '/query/query.json';
         var query = JSON.parse(fs.readFileSync(queryPath, 'utf-8'));
         series.query(query, function(error, response, series) {
             expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
@@ -100,5 +105,14 @@ describe('Series Test', function() {
                 expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
                 done();
             });
+    });
+
+    it('test queryStatistic', function(done) {
+        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/simple.json'));
+
+        series.insert(payload, function(error, response) {
+            expect(response.statusCode === 200).to.equal(true);
+            done();
+        });
     });
 });
