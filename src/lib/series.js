@@ -47,6 +47,7 @@ Series.unit = {
 
 /**
  * Simple post to series/query on your atsd instance
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md Series Query}
  *
  * @param {Array} payload  - body of queries
  * @param {Function} callback function- returned response, error, and body
@@ -63,6 +64,7 @@ Series.prototype.query = function(payload, callback) {
 
 /**
  * Select a detail query with many params
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md Series Query}
  *
  * @param {String} metric - name of metric
  * @param {String} entity - name of entity
@@ -99,6 +101,7 @@ Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime
 
 /**
  * Special method to select series with statistics param.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md Series Query}
  *
  * @param {String} metric - name of metric
  * @param {String} entity - name of entity
