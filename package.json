@@ -26,7 +26,8 @@
     "jscs": "jscs **.js src/**/**.js",
     "lint": "jshint **.js",
     "test": "mocha src/tests",
-    "prebuild": "npm run jscs && npm run lint && npm run test"
+    "prebuild": "npm run jscs && npm run lint && npm run test && npm run test-cov",
+    "test-cov": "istanbul cover _mocha -- -R spec src/**/*.js"
   },
   "pre-commit": [
     "jshint",
