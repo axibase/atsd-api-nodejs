@@ -1,0 +1,15 @@
+[
+  {
+    "type": "disk",
+    "entity": "nurswgvml007",
+    "key": {
+      "file_system": "/",
+      "name": "sda1"
+    }
+  },
+  {
+    "type": "disk",
+    "entity": "nurswgvml006",
+    "exactMatch": false
+  }
+]
