@@ -1,4 +1,10 @@
 'use strict';
+
+/**
+ * API methods for ATSD Series component
+ * @author Igor Shmagrinskiy
+ */
+
 var util = require('util');
 var ATSDClient = require('./client').ATSDClient;
 
@@ -39,16 +45,12 @@ Series.unit = {
     YEAR: 'YEAR'
 };
 
-// Series: Query
-// https://axibase.com/atsd/api/#series:-query
-Series.prototype.get = function(payload, callback) {
-    var path = 'series/query';
-
-    this.postRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
-};
-
+/**
+ * Simple post to series/query on your atsd instance
+ *
+ * @param {Array} payload  - body of queries
+ * @param {Function} callback function- returned response, error, and body
+ */
 Series.prototype.query = function(payload, callback) {
     var path = 'series/query';
     for (var i = 0; i < payload.length; i++) {
@@ -59,14 +61,21 @@ Series.prototype.query = function(payload, callback) {
     });
 };
 
+/**
+ * Select a detail query with many params
+ *
+ * @param {String} metric - name of metric
+ * @param {String} entity - name of entity
+ * @param {Array} tags - list of tags
+ * @param {Date} startTime - start time of selected metric
+ * @param {Date} endTime - end time of selected metric
+ * @param {Function} callback - result callback function with response, error and list of selected series
+ */
 Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime, callback) {
-    var path = 'series/query';
-
-    var query = {
-        'metric': metric,
-        'entity': entity,
-        'tags': tags,
-        'timeFormat': 'iso'
+    var q = {
+        metric: metric,
+        entity: entity,
+        tags: tags
     };
 
     if (startTime instanceof Date) {
@@ -77,17 +86,14 @@ Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime
         endTime = endTime.getTime();
     }
 
-    query[typeof startTime === 'string' ? 'startDate' : 'startTime'] = startTime;
-    query[typeof startTime === 'string' ? 'endDate' : 'endTime'] = endTime;
+    q[typeof startTime === 'string' ? 'startDate' : 'startTime'] = startTime;
+    q[typeof startTime === 'string' ? 'endDate' : 'endTime'] = endTime;
 
-    var payload = {
-        'queries': [
-            query
-        ]
-    };
+    var payload = [];
 
-    this.postRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body.series !== undefined ? body.series : []);
+    payload.push(q);
+    this.query(payload, function(error, response, body) {
+        callback(error, response, body[0]);
     });
 };
 
