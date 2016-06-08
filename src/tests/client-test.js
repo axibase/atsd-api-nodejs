@@ -10,7 +10,8 @@ var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
 describe('Client test', function() {
     var client = new ATSDClient(options);
     it('client class created', function(done) {
-        expect(typeof (client) !== 'undefined').to.equal(true);
+        expect(client).to.not.be.undefined;
+        expect(client).to.not.be.null;
         done();
     });
 
@@ -18,7 +19,7 @@ describe('Client test', function() {
         var path = '';
 
         client.postRequest(path, {}, [], function(error) {
-            expect(!error).to.equal(true);
+            expect(error).to.be.null;
             done();
         });
     });
@@ -26,7 +27,9 @@ describe('Client test', function() {
     it('response is definded', function(done) {
         var path = '';
         client.postRequest(path, {}, [], function(error, response) {
-            expect(typeof(response) !== 'undefined').to.equal(true);
+            expect(error).to.be.null;
+            expect(response).to.not.be.null;
+            expect(response).to.not.be.undefined;
             done();
         });
     });
