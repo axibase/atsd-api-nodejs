@@ -45,7 +45,19 @@ describe('Properties Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
 
         properties.query(payload, function(error, response, properties) {
-            expect(correctResult(error, response, properties)).to.equal(true);
+            expect(response.statusCode).to.equal(200);
+            expect(error).to.be.null;
+            expect(properties).to.satisfy(correctProperties);
+            done();
+        });
+    });
+
+    it('typeQuery', function(done) {
+        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
+        properties.typeQuery(payload[0].entity, function(error, response, properties) {
+            expect(error).to.be.null;
+            expect(response.statusCode).to.equal(200);
+            expect(properties).to.be.satisfy(Array.isArray);
             done();
         });
     });
@@ -54,7 +66,7 @@ describe('Properties Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/insert.json'));
 
         properties.insert(payload, function(error, response) {
-            expect(response.statusCode === 200).to.equal(true);
+            expect(response.statusCode).to.equal(200);
             done();
         });
     });
@@ -63,7 +75,7 @@ describe('Properties Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/delete/delete.json'));
 
         properties.delete(payload, function(error, response) {
-            expect(response.statusCode === 200).to.equal(true);
+            expect(response.statusCode).to.equal(200);
             done();
         });
     });

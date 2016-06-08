@@ -51,36 +51,46 @@ The arguments are as follows:
 
 `Entities`, `Metrics`, `Properties`, `Alerts` and `Series` are all subclasses of `ATSDClient` and use the same constructor. They hold the implementations of [ATSD API methods](https://axibase.com/atsd/api/):
 
+#### Data API
+
  API method                                                                                                   | Client function
 --------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
  **Series**                                                                                                   | `Series(options)`
- [Series: Query](https://axibase.com/atsd/api/#series:-query)                                                 | `Series.get(payload, callback)`
- [Series: Insert](https://axibase.com/atsd/api/#series:-insert)                                               | `Series.insert(payload, callback)`
+ [Series: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md)                   | `Series.query(payload, callback)`
+ [Series: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/series/insert.md)                 | `Series.insert(payload, callback)`
  **Alerts**                                                                                                   | `Alerts(options)`
- [Alerts: Query](https://axibase.com/atsd/api/#alerts:-query)                                                 | `Alerts.get(payload, callback)`
- [Alerts: Update](https://axibase.com/atsd/api/#alerts:-update)                                               | `Alerts.update(payload, callback)`
- [Alerts: History Query](https://axibase.com/atsd/api/#alerts:-history-query)                                 | `Alerts.getHistory(payload, callback)`
- **Entities**                                                                                                 | `Entities(options)`
- [Entities: List](https://axibase.com/atsd/api/#entities:-list)                                               | `Entities.getAll(params, callback)`
- [Entity: Get](https://axibase.com/atsd/api/#entity:-get)                                                     | `Entities.get(entity, params, callback)`
- [Entity: Create or Replace](https://axibase.com/atsd/api/#entity:-create-or-replace)                         | `Entities.create(entity, payload, callback)`
- [Entity: Update](https://axibase.com/atsd/api/#entity:-update)                                               | `Entities.update(entity, payload, callback)`
- [Entity: Delete](https://axibase.com/atsd/api/#entity:-delete)                                               | `Entities.delete(entity, callback)`
- [Entity: Property Types](https://axibase.com/atsd/api/#entity:-property-types)                               | `Entities.getPropertyTypes(entity, params, callback)`
- **Metrics**                                                                                                  | `Metrics(options)`
- [Metrics: List](https://axibase.com/atsd/api/#metrics:-list)                                                 | `Metrics.getAll(params, callback)`
- [Metrics: Entity](https://axibase.com/atsd/api/#metrics:-entity)                                             | `Metrics.getByEntity(entity, params, callback)`
- [Metric: Get](https://axibase.com/atsd/api/#metric:-get)                                                     | `Metrics.get(metric, params, callback)`
- [Metric: Create or Replace](https://axibase.com/atsd/api/#metric:-create-or-replace)                         | `Metrics.create(metric, payload, callback)`
- [Metric: Update](https://axibase.com/atsd/api/#metric:-update)                                               | `Metrics.update(metric, payload, callback)`
- [Metric: Delete](https://axibase.com/atsd/api/#metric:-delete)                                               | `Metrics.delete(metric, callback)`
- [Metric: Entities and Tags](https://axibase.com/atsd/api/#metric:-entities-and-tags)                         | `Metrics.getEntitiesAndTags(metric, params, callback)`
+ [Alerts: Query](https://axibase.com/atsd/api/#alerts:-query)                                                 | `Alerts.query(payload, callback)`
+ [Alerts: Update](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/query.md)                  | `Alerts.update(payload, callback)`
+ [Alerts: History Query](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/history-query.md)   | `Alerts.historyQuery(payload, callback)`
+ [Alerts: Delete](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/delete.md)                 | `Alerts.delete(payload, callback)`
  **Properties**                                                                                               | `Properties(options)`
- [Properties: Query](https://axibase.com/atsd/api/#properties:-query)                                         | `Properties.get(payload, callback)`
- [Properties: Query for Entity and Type](https://axibase.com/atsd/api/#properties:-query-for-entity-and-type) | `Properties.getByEntityAndType(entity, type, params, callback)`
- [Properties: Property Types](https://axibase.com/atsd/api/#properties:-property-types)                       | `Properties.getPropertyTypes(entity, params, callback)`
+ [Properties: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/query.md)           | `Properties.query(payload, callback)`
+ [Properties: Type Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/type-query.md) | `Properties.typeQuery(payload, callback)`
  [Properties: Insert](https://axibase.com/atsd/api/#properties:-insert)                                       | `Properties.insert(payload, callback)`
- [Properties: Batch](https://axibase.com/atsd/api/#properties:-batch)                                         | `Properties.batch(payload, callback)`
+ [Properties: Delete](https://axibase.com/atsd/api/#properties:-batch)                                        | `Properties.delete(payload, callback)`
+ **Messages**                                                                                                 | `Messages(options)`
+ [Messages: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/query.md)               | `Messages.query(payload, callback)`
+ [Messages: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/insert.md)             | `Messages.insert(payload, callback)`
+ 
+#### Meta API
+
+API method                                                                                                   | Client function
+-------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
+**Entities**                                                                                                 | `Entities(options)`
+ [Entities: List](https://axibase.com/atsd/api/#entities:-list)                                              | `Entities.getAll(params, callback)`
+ [Entity: Get](https://axibase.com/atsd/api/#entity:-get)                                                    | `Entities.get(entity, params, callback)`
+ [Entity: Create or Replace](https://axibase.com/atsd/api/#entity:-create-or-replace)                        | `Entities.create(entity, payload, callback)`
+ [Entity: Update](https://axibase.com/atsd/api/#entity:-update)                                              | `Entities.update(entity, payload, callback)`
+ [Entity: Delete](https://axibase.com/atsd/api/#entity:-delete)                                              | `Entities.delete(entity, callback)`
+ [Entity: Property Types](https://axibase.com/atsd/api/#entity:-property-types)                              | `Entities.getPropertyTypes(entity, params, callback)`
+ **Metrics**                                                                                                 | `Metrics(options)`
+ [Metrics: List](https://axibase.com/atsd/api/#metrics:-list)                                                | `Metrics.getAll(params, callback)`
+ [Metrics: Entity](https://axibase.com/atsd/api/#metrics:-entity)                                            | `Metrics.getByEntity(entity, params, callback)`
+ [Metric: Get](https://axibase.com/atsd/api/#metric:-get)                                                    | `Metrics.get(metric, params, callback)`
+ [Metric: Create or Replace](https://axibase.com/atsd/api/#metric:-create-or-replace)                        | `Metrics.create(metric, payload, callback)`
+ [Metric: Update](https://axibase.com/atsd/api/#metric:-update)                                              | `Metrics.update(metric, payload, callback)`
+ [Metric: Delete](https://axibase.com/atsd/api/#metric:-delete)                                              | `Metrics.delete(metric, callback)`
+ [Metric: Entities and Tags](https://axibase.com/atsd/api/#metric:-entities-and-tags)                        | `Metrics.getEntitiesAndTags(metric, params, callback)`
 
 There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
 

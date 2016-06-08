@@ -37,9 +37,8 @@ Properties.prototype.query = function(payload, callback) {
  * @param {String} entity - name of entity
  * @param {Function} callback - result function
  */
-
-Properties.prototype.getTypesByEntity = function(entity, callback) {
-    var path = propertiesPath + entity + '/types';
+Properties.prototype.typeQuery = function(entity, callback) {
+    var path = propertiesPath + '/' + entity + '/types';
 
     this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
@@ -52,9 +51,10 @@ Properties.prototype.getTypesByEntity = function(entity, callback) {
  *
  * @param {String} entity - name of entity
  * @param {Function} callback - result function
+ * @private
  */
 
-Properties.prototype.getPropertyTypes = function(entity, callback) {
+Properties.prototype._getPropertyTypes = function(entity, callback) {
     var path = 'alerts/' + entity + '/types';
 
     this.getRequest(path, {}, {}, function(error, response, body) {
