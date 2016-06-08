@@ -1,0 +1,8 @@
+.gitignore
+.git
+.iml
+.idea
+README.md
+npm-debug.log
+coverage
+src/tests
