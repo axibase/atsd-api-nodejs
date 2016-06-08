@@ -1,6 +1,8 @@
 'use strict';
 var _ = require('lodash');
 var request = require('request');
+var logger = require('npmlog');
+logger.enableColor();
 
 exports.ATSDClient = ATSDClient;
 
@@ -59,7 +61,7 @@ ATSDClient.prototype.request = function(method, path, params, payload, callback)
             strictSSL: this._strictSSL
         },
         function(error, response, body) {
-            console.log(method + ' ' + url);
+            logger.info('HTTPRequest : ', '%j to %j', method, url);
             callback(error, response, body);
         }
     );
