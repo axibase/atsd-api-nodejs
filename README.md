@@ -59,8 +59,8 @@ The arguments are as follows:
  [Series: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md)                   | `Series.query(payload, callback)`
  [Series: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/series/insert.md)                 | `Series.insert(payload, callback)`
  **Alerts**                                                                                                   | `Alerts(options)`
- [Alerts: Query](https://axibase.com/atsd/api/#alerts:-query)                                                 | `Alerts.query(payload, callback)`
- [Alerts: Update](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/query.md)                  | `Alerts.update(payload, callback)`
+ [Alerts: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/query.md)                   | `Alerts.query(payload, callback)`
+ [Alerts: Update](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/update.md)                 | `Alerts.update(payload, callback)`
  [Alerts: History Query](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/history-query.md)   | `Alerts.historyQuery(payload, callback)`
  [Alerts: Delete](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/delete.md)                 | `Alerts.delete(payload, callback)`
  **Properties**                                                                                               | `Properties(options)`
