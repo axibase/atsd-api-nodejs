@@ -1,9 +1,7 @@
 {
   "preset": "google",
-  "fileExtensions": [
-    ".js",
-    "jscs"
-  ],
+  "fileExtensions": [".js", "jscs"],
+
   "requireSemicolons": true,
   "requireParenthesesAroundIIFE": true,
   "maximumLineLength": 120,
@@ -11,11 +9,12 @@
   "validateIndentation": 4,
   "disallowTrailingComma": true,
   "disallowUnusedParams": true,
+
   "disallowSpacesInsideObjectBrackets": null,
-  "disallowImplicitTypeConversion": [
-    "string"
-  ],
+  "disallowImplicitTypeConversion": ["string"],
+
   "safeContextKeyword": "_this",
+
   "jsDoc": {
     "checkAnnotations": "closurecompiler",
     "checkParamNames": true,
@@ -28,6 +27,7 @@
     "checkRedundantAccess": true,
     "requireNewlineAfterDescription": true
   },
+
   "excludeFiles": [
     "test/data/**",
     "patterns/*"

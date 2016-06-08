@@ -11,7 +11,7 @@ util.inherits(Entities, ATSDClient);
 
 // Entities: List
 // https://axibase.com/atsd/api/#entities:-list
-Entities.prototype.getAll = function(params, callback) {
+Entities.prototype.get = function(params, callback) {
     var path = 'entities';
 
     this.getRequest(path, params, {}, function(error, response, body) {

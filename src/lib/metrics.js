@@ -1,49 +1,65 @@
 'use strict';
+/**
+ * @author Igor Shmagrinsky <unrealwork@gmail.com>
+ */
 
 var util = require('util');
-
 var ATSDClient = require('./client').ATSDClient;
 
-var Metrics = exports.Metrics = function(options) {
+exports.Metrics = Metrics;
+var metricsPath = 'metrics';
+
+/**
+ * Class implements all methods available in MetricsAPI
+ *
+ * @class
+ *
+ * @param {Object} options
+ * @constructor
+ */
+function Metrics(options) {
     ATSDClient.call(this, options);
-};
+}
 
 util.inherits(Metrics, ATSDClient);
 
-// Metrics: List
-// https://axibase.com/atsd/api/#metrics:-list
-Metrics.prototype.getAll = function(params, callback) {
-    var path = 'metrics';
+/**
+ * Retrieve all metrics available in your ATSD instance
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/list.md Metric List}
+ *
+ * @param {Function} callback  result function with retrieved data
+ */
+Metrics.prototype.getAll = function(callback) {
+    var path = metricsPath;
 
-    this.getRequest(path, params, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
     });
 };
 
-// Metrics: Entity
-// https://axibase.com/atsd/api/#metrics:-entity
-Metrics.prototype.getByEntity = function(entity, params, callback) {
-    var path = 'entities/' + entity + '/metrics';
+/**
+ * Retrieve information for specified entity
+ *
+ * @param {String} metric - name of metirc
+ * @param {Function} callback  result function with retrieved data
+ */
+Metrics.prototype.get = function(metric, callback) {
+    var path = metricsPath + '/' + metric;
 
-    this.getRequest(path, params, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
     });
 };
 
-// Metric: Get
-// https://axibase.com/atsd/api/#metric:-get
-Metrics.prototype.get = function(metric, params, callback) {
-    var path = 'metrics/' + metric;
-
-    this.getRequest(path, params, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
-};
-
-// Metric: Create or Replace
-// https://axibase.com/atsd/api/#metric:-create-or-replace
+/**
+ * Create a metric with specified payload
+ *
+ * @param {String} metric
+ * @param {String} payload
+ * @param {Function} callback
+ */
 Metrics.prototype.create = function(metric, payload, callback) {
-    var path = 'metrics/' + metric;
+    var path = metricsPath + metric;
 
     this.putRequest(path, {}, payload, function(error, response, body) {
         callback(error, response, body);
@@ -53,7 +69,7 @@ Metrics.prototype.create = function(metric, payload, callback) {
 // Metric: Update
 // https://axibase.com/atsd/api/#metric:-update
 Metrics.prototype.update = function(metric, payload, callback) {
-    var path = 'metrics/' + metric;
+    var path = metricsPath + metric;
 
     this.patchRequest(path, {}, payload, function(error, response, body) {
         callback(error, response, body);
@@ -63,7 +79,7 @@ Metrics.prototype.update = function(metric, payload, callback) {
 // Metric: Delete
 // https://axibase.com/atsd/api/#metric:-delete
 Metrics.prototype.delete = function(metric, callback) {
-    var path = 'metrics/' + metric;
+    var path = metricsPath + metric;
 
     this.deleteRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
@@ -73,7 +89,7 @@ Metrics.prototype.delete = function(metric, callback) {
 // Metric: Entities and Tags
 // https://axibase.com/atsd/api/#metric:-entities-and-tags
 Metrics.prototype.getEntitiesAndTags = function(metric, params, callback) {
-    var path = 'metrics/' + metric + '/entity-and-tags';
+    var path = metricsPath + metric + '/entity-and-tags';
 
     this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
