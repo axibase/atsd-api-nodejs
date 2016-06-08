@@ -15,7 +15,7 @@ exports.ATSDClient = ATSDClient;
  * @param {String} options.url - full  url of your ATSD instance
  * @param {String} options.user - user login
  * @param {String} options.password - password
- * @param {Boolean} options.strictSSL - requires SSL certificate validation
+ * @param {Boolean} options.strictSSL - requires SSL certificate validatio  n
  */
 function ATSDClient(options) {
     this._baseUrl = options.url + '/api/v1/';

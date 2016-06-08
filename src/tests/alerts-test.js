@@ -37,8 +37,12 @@ describe('Alerts Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/history-query/history-query.json'));
 
         alerts.historyQuery(payload, function(error, response, body) {
-            expect(response.statusCode === 200).to.equal(true);
-            expect(typeof (body)).to.equal('object');
+            expect(response.statusCode).to.oneOf([200, 404]);
+            if (response.statusCode === 200) {
+                expect(body).to.satisfy(Array.isArray);
+            } else {
+                expect(body.error).to.not.be.null;
+            }
             done();
         });
     });
