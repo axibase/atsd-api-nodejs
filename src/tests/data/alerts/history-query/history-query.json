@@ -1,0 +1,8 @@
+[
+  {
+    "metric": "nmon.cpu_total.busy%",
+    "startDate": "2016-05-27T18:00:00Z",
+    "endDate": "2016-05-27T18:15:00Z",
+    "limit": 5
+  }
+]

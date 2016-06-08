@@ -45,21 +45,20 @@ describe('Series Test', function() {
         return true;
     }
 
-    function correctSeriesCallbackData(error, response, body) {
-        return !error && (response.statusCode === 200) && correctBody(body);
-    }
-
     var series = new Series(options);
 
     it('series intialized', function() {
-        expect(series !== null).to.equal(true);
+        expect(series).not.to.be.null;
+        expect(series).not.to.be.undefined;
     });
 
     it('query', function(done) {
         var queryPath = testDataQueryPath + '/query/query.json';
         var query = JSON.parse(fs.readFileSync(queryPath, 'utf-8'));
         series.query(query, function(error, response, series) {
-            expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
+            expect(error).to.be.null;
+            expect(response.statusCode).equal(200);
+            expect(series).to.satisfy(correctBody);
             done();
         });
     });
@@ -78,7 +77,9 @@ describe('Series Test', function() {
             payload.startTime,
             payload.endTime,
             function(error, response, series) {
-                expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
+                expect(error).to.be.null;
+                expect(response.statusCode).equal(200);
+                expect(series).to.satisfy(correctBody);
                 done();
             });
     });
@@ -102,7 +103,9 @@ describe('Series Test', function() {
                 unit: Series.unit.HOUR
             },
             function(error, response, series) {
-                expect(correctSeriesCallbackData(error, response, series)).to.equal(true);
+                expect(error).to.be.null;
+                expect(response.statusCode).equal(200);
+                expect(series).to.satisfy(correctBody);
                 done();
             });
     });
@@ -111,6 +114,15 @@ describe('Series Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/simple.json'));
 
         series.insert(payload, function(error, response) {
+            expect(response.statusCode).to.equal(200);
+            done();
+        });
+    });
+
+    it('insertData', function(done) {
+        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/simple.json'));
+        var query = payload[0];
+        series.insertData(query.metric, query.entity, query.tags, query.data, function(error, response) {
             expect(response.statusCode).to.equal(200);
             done();
         });

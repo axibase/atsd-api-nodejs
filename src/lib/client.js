@@ -2,11 +2,19 @@
 var _ = require('lodash');
 var request = require('request');
 
-var ATSDClient = exports.ATSDClient = function(options) {
+exports.ATSDClient = ATSDClient;
+
+/**
+ * ATSD client consturctor
+ *
+ * @param {Object} options - atsd params
+ * @constructor
+ */
+function ATSDClient(options) {
     this._baseUrl = options.url + '/api/v1/';
     this._auth = 'Basic ' + new Buffer(options.user + ':' + options.password).toString('base64');
     this._strictSSL = options.strictSSL !== undefined ? options.strictSSL : true;
-};
+}
 
 ATSDClient.prototype._paramsToString = function(params) {
     var paramArray = [];

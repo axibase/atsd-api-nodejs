@@ -33,6 +33,16 @@ describe('Alerts Test', function() {
         });
     });
 
+    it('alertsHistory', function(done) {
+        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/history-query/history-query.json'));
+
+        alerts.historyQuery(payload, function(error, response, body) {
+            expect(response.statusCode === 200).to.equal(true);
+            expect(typeof (body)).to.equal('object');
+            done();
+        });
+    });
+
     it('delete', function(done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/delete/delete.json'));
 

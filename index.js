@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
     ATSDClient: require('./src/lib/client').ATSDClient,
     Entities: require('./src/lib/entities').Entities,

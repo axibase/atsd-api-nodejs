@@ -170,10 +170,10 @@ Series.prototype.insert = function(payload, callback) {
 Series.prototype.insertData = function(metric, entity, tags, data, callback) {
     var payload = [
         {
-            'metric': metric,
-            'entity': entity,
-            'tags': tags,
-            'data': data
+            metric: metric,
+            entity: entity,
+            tags: tags,
+            data: data
         }
     ];
 
