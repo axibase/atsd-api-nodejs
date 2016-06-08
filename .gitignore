@@ -3,3 +3,4 @@
 src/tests/test-options.json
 coverage/
 out/
+npm-debug.log

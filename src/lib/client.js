@@ -7,8 +7,15 @@ exports.ATSDClient = ATSDClient;
 /**
  * ATSD client consturctor
  *
- * @param {Object} options - atsd params
+ * @class
+ *
  * @constructor
+ *
+ * @param {Object} options
+ * @param {String} options.url - full  url of your ATSD instance
+ * @param {String} options.user - user login
+ * @param {String} options.password - password
+ * @param {Boolean} options.strictSSL - requires SSL certificate validation
  */
 function ATSDClient(options) {
     this._baseUrl = options.url + '/api/v1/';
@@ -16,6 +23,13 @@ function ATSDClient(options) {
     this._strictSSL = options.strictSSL !== undefined ? options.strictSSL : true;
 }
 
+/**
+ * Convert params objects to url formatted string
+ *
+ * @param {Object} params - params dictionary
+ * @returns {String} - url formatted string
+ * @private
+ */
 ATSDClient.prototype._paramsToString = function(params) {
     var paramArray = [];
 
