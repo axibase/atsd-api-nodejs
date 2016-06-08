@@ -66,7 +66,7 @@ The arguments are as follows:
  **Properties**                                                                                               | `Properties(options)`
  [Properties: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/query.md)           | `Properties.query(payload, callback)`
  [Properties: Type Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/type-query.md) | `Properties.typeQuery(payload, callback)`
- [Properties: Insert(https://github.com/axibase/atsd-docs/blob/master/api/data/properties/insert.md)          | `Properties.insert(payload, callback)`
+ [Properties: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/insert.md)          | `Properties.insert(payload, callback)`
  [Properties: Delete](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/delete.md)         | `Properties.delete(payload, callback)`
  **Messages**                                                                                                 | `Messages(options)`
  [Messages: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/query.md)               | `Messages.query(payload, callback)`
