@@ -16,7 +16,7 @@ exports.ATSDClient = ATSDClient;
  * @param {Object} options
  * @param {String} options.url - full  url of your ATSD instance
  * @param {String} options.user - user login
- * @param {String} options.password - password
+ * @param {String} options.password - passwo
  * @param {Boolean} options.strictSSL - requires SSL certificate validatio  n
  */
 function ATSDClient(options) {
