@@ -2,3 +2,4 @@
 /node_modules
 src/tests/test-options.json
 coverage/
+out/
