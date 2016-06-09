@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "persistent": true,
+  "dataType": "DOUBLE",
+  "timePrecision": "MILLISECONDS",
+  "retentionInterval": 0
+}

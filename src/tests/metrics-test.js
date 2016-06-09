@@ -17,6 +17,7 @@ describe('Metrics Test', function() {
 
     it('all metrics', function(done) {
         metrics.getAll(function(error, response, data) {
+
             expect(error).to.be.null;
             expect(response.statusCode).to.equal(200);
             expect(data).to.satisfy(Array.isArray);
@@ -30,6 +31,16 @@ describe('Metrics Test', function() {
             expect(error).to.be.null;
             expect(response.statusCode).to.equal(200);
             expect(data).to.be.a('object');
+        });
+        done();
+    });
+
+    it('create metric', function(done) {
+        var metric = 'my-metric';
+        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/create/create.json'));
+        metrics.create(metric, payload, function(error, response) {
+            expect(error).to.be.null;
+            expect(response.statusCode).to.equal(200);
         });
         done();
     });

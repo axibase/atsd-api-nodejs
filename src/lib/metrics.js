@@ -52,14 +52,17 @@ Metrics.prototype.get = function(metric, callback) {
 };
 
 /**
- * Create a metric with specified payload
+ * Create a metric with specified properties and tags or replace an existing metric.
+ * If the metric exists, all of its current properties and tags will
+ * be overwritten with fields specified in the request.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/create-or-replace.md Create}
  *
- * @param {String} metric
- * @param {String} payload
- * @param {Function} callback
+ * @param {String} metric name of metric
+ * @param {String} payload body request
+ * @param {Function} callback result function
  */
 Metrics.prototype.create = function(metric, payload, callback) {
-    var path = metricsPath + metric;
+    var path = metricsPath + '/' + metric;
 
     this.putRequest(path, {}, payload, function(error, response, body) {
         callback(error, response, body);
