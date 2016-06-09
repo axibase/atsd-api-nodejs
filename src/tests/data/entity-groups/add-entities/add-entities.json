@@ -1,0 +1,11 @@
+[
+  {
+    "action" : "add",
+    "createEntities": true,
+    "entities" :
+    [
+      {"name":"nurswgvml010"},
+      {"name":"nurswgvml011"}
+    ]
+  }
+]
