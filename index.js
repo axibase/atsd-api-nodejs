@@ -7,5 +7,6 @@ module.exports = {
     Properties: require('./src/lib/properties').Properties,
     Alerts: require('./src/lib/alerts').Alerts,
     Series: require('./src/lib/series').Series,
-    Messages: require('./src/lib/messages').Messages
+    Messages: require('./src/lib/messages').Messages,
+    EntityGroups: require('./src/lib/entity-groups').EntityGroups
 };
