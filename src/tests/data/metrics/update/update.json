@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "persistent": true,
+  "dataType": "LONG",
+  "timePrecision": "MILLISECONDS",
+  "retentionInterval": 0
+}

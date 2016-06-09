@@ -49,7 +49,6 @@ describe('Alerts Test', function() {
 
     it('delete', function(done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/delete/delete.json'));
-
         alerts.delete(payload, function(error, response) {
             expect(response.statusCode === 200).to.equal(true);
             done();

@@ -1,36 +1,63 @@
 'use strict';
+/**
+ * @ author Igor Shmagrinskiy
+ */
 var util = require('util');
-
 var ATSDClient = require('./client').ATSDClient;
+exports.Entities = Entities;
+var entitiesPath = 'entities';
 
-var Entities = exports.Entities = function(options) {
+/**
+ * Class implements all methods available in EntitiesAPI
+ *
+ * @class
+ * @param {Object} options
+ * @constructor
+ */
+function Entities(options) {
     ATSDClient.call(this, options);
-};
+}
 
 util.inherits(Entities, ATSDClient);
 
-// Entities: List
-// https://axibase.com/atsd/api/#entities:-list
-Entities.prototype.get = function(params, callback) {
-    var path = 'entities';
+/**
+ * Retrieve all entities available in your ATSD instance
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/list.md List}
+ *
+ * @param {Function} callback result function
+ */
+Entities.prototype.list = function(callback) {
+    var path = entitiesPath;
 
-    this.getRequest(path, params, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
     });
 };
 
-// Entity: Get
-// https://axibase.com/atsd/api/#entity:-get
-Entities.prototype.get = function(entity, params, callback) {
+/**
+ * Retrieve properties and tags for the specified entity.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/get.md Get}
+ *
+ * @param {String} entity name of entity
+ * @param {Function} callback result function
+ */
+Entities.prototype.get = function(entity, callback) {
     var path = 'entities/' + entity;
 
-    this.getRequest(path, params, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function(error, response, body) {
         callback(error, response, body);
     });
 };
 
-// Entity: Create or Replace
-// https://axibase.com/atsd/api/#entity:-create-or-replace
+/**
+ * Create an entity with specified properties and tags or replace
+ * the properties and tags of an existing entity.
+ * This method creates a new entity or replaces the properties and tags of an existing entity.
+ *
+ * @param {String} entity
+ * @param {Object} payload body of request
+ * @param {Function} callback result function
+ */
 Entities.prototype.create = function(entity, payload, callback) {
     var path = 'entities/' + entity;
 
@@ -39,8 +66,16 @@ Entities.prototype.create = function(entity, payload, callback) {
     });
 };
 
-// Entity: Update
-// https://axibase.com/atsd/api/#entity:-update
+/**
+ * Update specified properties and tags for the given entity.
+ * PATCH method updates specified properties and tags for an existing entity.
+ * Properties and tags that are not specified are left unchanged.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/update.md Update}
+ *
+ * @param {String} entity
+ * @param {Object} payload body of request
+ * @param {Function} callback result function
+ */
 Entities.prototype.update = function(entity, payload, callback) {
     var path = 'entities/' + entity;
 
@@ -49,22 +84,18 @@ Entities.prototype.update = function(entity, payload, callback) {
     });
 };
 
-// Entity: Delete
-// https://axibase.com/atsd/api/#entity:-delete
+/**
+ * Delete the entity. Delete the entity from any Entity Groups that it belongs to.
+ * Data collected by the entity will be removed asynchronously in the background.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/delete.md Delete}
+ *
+ * @param {String} entity
+ * @param {Function} callback result function
+ */
 Entities.prototype.delete = function(entity, callback) {
     var path = 'entities/' + entity;
 
     this.deleteRequest(path, {}, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
-};
-
-// Entity: Property Types
-// https://axibase.com/atsd/api/#entity:-property-types
-Entities.prototype.getPropertyTypes = function(entity, params, callback) {
-    var path = 'entities/' + entity + '/property-types';
-
-    this.getRequest(path, params, {}, function(error, response, body) {
         callback(error, response, body);
     });
 };
