@@ -38,6 +38,7 @@ Metrics.prototype.list = function(callback) {
 
 /**
  * Retrieve information for specified entity
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/get.md Get}
  *
  * @param {String} metric - name of metirc
  * @param {Function} callback  result function with retrieved data

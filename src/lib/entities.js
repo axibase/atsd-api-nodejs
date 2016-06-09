@@ -53,6 +53,7 @@ Entities.prototype.get = function(entity, callback) {
  * Create an entity with specified properties and tags or replace
  * the properties and tags of an existing entity.
  * This method creates a new entity or replaces the properties and tags of an existing entity.
+ * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/create-or-replace.md Create or Replace}
  *
  * @param {String} entity
  * @param {Object} payload body of request

@@ -77,20 +77,27 @@ The arguments are as follows:
 API method                                                                                                   | Client function
 -------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
 **Entities**                                                                                                 | `Entities(options)`
- [Entities: List](https://axibase.com/atsd/api/#entities:-list)                                              | `Entities.getAll(params, callback)`
- [Entity: Get](https://axibase.com/atsd/api/#entity:-get)                                                    | `Entities.get(entity, params, callback)`
- [Entity: Create or Replace](https://axibase.com/atsd/api/#entity:-create-or-replace)                        | `Entities.create(entity, payload, callback)`
- [Entity: Update](https://axibase.com/atsd/api/#entity:-update)                                              | `Entities.update(entity, payload, callback)`
- [Entity: Delete](https://axibase.com/atsd/api/#entity:-delete)                                              | `Entities.delete(entity, callback)`
- [Entity: Property Types](https://axibase.com/atsd/api/#entity:-property-types)                              | `Entities.getPropertyTypes(entity, params, callback)`
+ [Entities: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/list.md)                  | `Entities.list(params, callback)`
+ [Entity: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/get.md)                      | `Entities.get(entity, params, callback)`
+ [Entity: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/create-or-replace.md)| `Entities.create(entity, payload, callback)`
+ [Entity: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/update.md)                | `Entities.update(entity, payload, callback)`
+ [Entity: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/delete.md)                | `Entities.delete(entity, callback)`
  **Metrics**                                                                                                 | `Metrics(options)`
- [Metrics: List](https://axibase.com/atsd/api/#metrics:-list)                                                | `Metrics.getAll(params, callback)`
- [Metrics: Entity](https://axibase.com/atsd/api/#metrics:-entity)                                            | `Metrics.getByEntity(entity, params, callback)`
- [Metric: Get](https://axibase.com/atsd/api/#metric:-get)                                                    | `Metrics.get(metric, params, callback)`
- [Metric: Create or Replace](https://axibase.com/atsd/api/#metric:-create-or-replace)                        | `Metrics.create(metric, payload, callback)`
- [Metric: Update](https://axibase.com/atsd/api/#metric:-update)                                              | `Metrics.update(metric, payload, callback)`
- [Metric: Delete](https://axibase.com/atsd/api/#metric:-delete)                                              | `Metrics.delete(metric, callback)`
- [Metric: Entities and Tags](https://axibase.com/atsd/api/#metric:-entities-and-tags)                        | `Metrics.getEntitiesAndTags(metric, params, callback)`
+ [Metrics: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/list.md)                   | `Metrics.list(params, callback)`
+ [Metrics: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/get.md)                     | `Metrics.get(entity, params, callback)`
+ [Metric: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/create-or-replace.md)| `Metrics.create(metric, payload, callback)`
+ [Metric: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/update.md)                | `Metrics.update(metric, payload, callback)`
+ [Metric: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/delete.md)                | `Metrics.delete(metric, callback)`
+  **Entity Groups**                                                                                          | `EntityGroups(options)`
+  [Entity Groups: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/list.md)            | `EntityGroups.list(params, callback)`
+  [Entity Groups: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get.md)              | `EntityGroups.get(entity, params, callback)`
+  [Entity Groups: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/create-or-replace.md)| `EntityGroups.create(entity-group, payload, callback)`
+  [Entity Groups: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/update.md)        | `EntityGroups.update(entity-group, payload, callback)`
+  [Entity Groups: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete.md)        | `EntityGroups.delete(entity-group, callback)`
+  [Entity Groups: GetEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get-entities.md)              | `EntityGroups.getEntities(entity, params, callback)`
+  [Entity Groups: AddEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/add-entities.md)| `EntityGroups.addEntities(entity-group, payload, callback)`
+  [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/replace-entities.md)        | `EntityGroups.replaceEntities(entity-group, payload, callback)`
+  [Entity Groups: DeleteEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete-entities.md)        | `EntityGroups.deleteEntities(entity-group, payload, callback)`
 
 There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
 

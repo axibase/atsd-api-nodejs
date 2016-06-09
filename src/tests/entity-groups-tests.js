@@ -90,7 +90,7 @@ describe('EntityGroups Test', function() {
         var entityGroup = 'my-entity-group';
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/replace-entities/replace-entities.json'));
         expect(entityGroups.replaceEntities).to.be.not.undefined;
-        entityGroups.deleteEntities(entityGroup, payload, function(error, response, data) {
+        entityGroups.replaceEntities(entityGroup, payload, function(error, response, data) {
             expect(error).to.be.null;
             expect(response.statusCode).to.be.oneOf([200,404]);
             if (response.statusCode === 200) {
