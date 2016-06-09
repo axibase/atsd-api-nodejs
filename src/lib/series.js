@@ -53,9 +53,6 @@ Series.unit = {
  */
 Series.prototype.query = function(payload, callback) {
     var path = 'series/query';
-    for (var i = 0; i < payload.length; i++) {
-        payload[i].timeFormat = 'iso';
-    }
     this.postRequest(path, {}, payload, function(error, response, body) {
         callback(error, response, body);
     });
