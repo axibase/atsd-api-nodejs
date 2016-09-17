@@ -1,4 +1,3 @@
 {
-  "expression": "hasMetric('klzsys.system_load_1min')",
   "tags": {"alias": "vmware_host"}
 }

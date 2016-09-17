@@ -36,7 +36,7 @@ EntityGroups.prototype.list = function(callback) {
 };
 
 /**
- * Displays entity group properties and all tags.
+ * Displays entity group propertiesMethod and all tags.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get.md Get}
  *
  * @param {String} entityGroup name of entity group
@@ -51,9 +51,9 @@ EntityGroups.prototype.get = function(entityGroup, callback) {
 };
 
 /**
- * Create an entity group with specified properties and tags or
- * replace properties and tags for an existing entity group.
- * This method creates a new entity group or replaces the properties and tags of an existing entity group.
+ * Create an entity group with specified propertiesMethod and tags or
+ * replace propertiesMethod and tags for an existing entity group.
+ * This method creates a new entity group or replaces the propertiesMethod and tags of an existing entity group.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/create-or-replace.md Create}
  *
  * @param {String} entityGroup name of entity group
@@ -69,8 +69,8 @@ EntityGroups.prototype.create = function(entityGroup, payload, callback) {
 };
 
 /**
- * Update specified properties and tags for the given entity.
- * PATCH method updates specified properties and tags for an existing entity.
+ * Update specified propertiesMethod and tags for the given entity.
+ * PATCH method updates specified propertiesMethod and tags for an existing entity.
  * Properties and tags that are not specified are left unchanged.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/update.md Update}
  *

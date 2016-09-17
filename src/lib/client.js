@@ -34,11 +34,9 @@ function ATSDClient(options) {
  */
 ATSDClient.prototype._paramsToString = function(params) {
     var paramArray = [];
-
     _.each(params, function(value, key) {
         paramArray.push(key + '=' + value);
     });
-
     return paramArray.length > 0 ? '?' + paramArray.join('&') : '';
 };
 
@@ -62,6 +60,7 @@ ATSDClient.prototype.request = function(method, path, params, payload, callback)
         },
         function(error, response, body) {
             logger.info('HTTPRequest : ', '%j to %j', method, url);
+            logger.info('Response : ', '%j', response.body);
             callback(error, response, body);
         }
     );

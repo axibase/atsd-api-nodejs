@@ -10,10 +10,161 @@ var Properties = require('../lib/properties').Properties;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
-var testDataQueryPath = __dirname + '/data/properties';
-var properties = new Properties(options);
+var testDataQueryPath = __dirname + '/data/propertiesMethod';
+var propertiesMethod = new Properties(options);
 
-describe('Properties Test', function() {
+describe('Properties Test', function () {
+    it('query', function (done) {
+        var payload = [
+            {
+                type: 'nodejs-api-properties-query-type',
+                entity: 'nodejs-api-properties-query-entity',
+                key: {
+                    fs: '/',
+                    mp: 'sda1'
+                },
+                tags: {
+                    fstype: 'ext4'
+                },
+                date: '2016-05-25T04:15:00.000Z'
+            }
+        ];
+
+        var queries = [
+            {
+                type: payload[0].type,
+                entity: payload[0].entity,
+                key: payload[0].key,
+                startDate: '2016-05-25T04:15:00.000Z',
+                endDate: '2016-05-25T04:15:00.001Z'
+            }
+        ];
+
+        var expectedProperties = payload;
+
+        propertiesMethod.insert(payload, function (error, response) {
+            expect(response.statusCode).equal(200);
+            expect(error).to.be.null;
+            propertiesMethod.query(queries, function (error, response, actualProperties) {
+                expect(actualProperties).to.eql(expectedProperties);
+                done();
+            });
+        });
+    });
+
+    it('typeQuery', function (done) {
+        var payload = [
+            {
+                type: 'nodejs-api-properties-type-query-type',
+                entity: 'nodejs-api-properties-type-query-entity',
+                key: {
+                    fs: '/',
+                    mp: 'sda1'
+                },
+                tags: {
+                    fstype: 'ext4'
+                },
+                date: '2016-05-25T04:15:00.000Z'
+            }
+        ];
+
+        var queries = [
+            {
+                type: payload[0].type,
+                entity: payload[0].entity,
+                key: payload[0].key,
+                startDate: '2016-05-25T04:15:00.000Z',
+                endDate: '2016-05-25T04:15:00.001Z'
+            }
+        ];
+
+        var expectedTypes = [payload[0].type];
+
+        propertiesMethod.insert(payload, function () {
+            propertiesMethod.typeQuery(payload[0].entity, function (error, response, actualProperties) {
+                expect(error).to.be.null;
+                expect(response.statusCode).to.equal(200);
+                expect(actualProperties).eql(expectedTypes);
+                done();
+            });
+
+        });
+    });
+
+    it('insert', function (done) {
+        var payload = [
+            {
+                type: 'nodejs-api-properties-insert-type',
+                entity: 'nodejs-api-properties-insert-entity',
+                key: {
+                    fs: '/',
+                    mp: 'sda1'
+                },
+                tags: {
+                    fstype: 'ext4'
+                },
+                date: '2016-05-25T04:15:00.000Z'
+            }
+        ];
+
+        var queries = [
+            {
+                type: payload[0].type,
+                entity: payload[0].entity,
+                key: payload[0].key,
+                startDate: '2016-05-25T04:15:00.000Z',
+                endDate: '2016-05-25T04:15:00.001Z'
+            }
+        ];
+
+        var expectedProperties = payload;
+
+        propertiesMethod.insert(payload, function (error, response) {
+            expect(response.statusCode).to.equal(200);
+            propertiesMethod.query(queries, function (error, response, actualProperties) {
+                expect(actualProperties).eql(expectedProperties);
+                done();
+            });
+        });
+    });
+
+    it('delete', function (done) {
+        var payload = [
+            {
+                type: 'nodejs-api-properties-delete-type',
+                entity: 'nodejs-api-properties-delete-entity',
+                key: {
+                    fs: '/',
+                    mp: 'sda1'
+                },
+                tags: {
+                    fstype: 'ext4'
+                },
+                date: '2016-05-25T04:15:00.000Z'
+            }
+        ];
+
+        var deleteFilter = [
+            {
+                type: payload[0].type,
+                entity: payload[0].entity,
+                key: payload[0].key,
+                startDate: '2016-05-25T04:15:00.000Z',
+                endDate: '2016-05-25T04:15:00.001Z'
+            }
+        ];
+
+        propertiesMethod.insert(payload, function () {
+            propertiesMethod.delete(deleteFilter, function (error, response) {
+                expect(response.statusCode).to.equal(200);
+                propertiesMethod.query(deleteFilter, function (error, response, deletedProperties) {
+                    expect(deletedProperties).to.be.empty;
+                    done();
+                });
+            });
+        });
+
+    });
 
     function correctProperty(property) {
         var correct = true;
@@ -40,43 +191,4 @@ describe('Properties Test', function() {
             response.statusCode === 200 &&
             correctProperties(properties);
     }
-
-    it('query', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
-
-        properties.query(payload, function(error, response, properties) {
-            expect(response.statusCode).to.equal(200);
-            expect(error).to.be.null;
-            expect(properties).to.satisfy(correctProperties);
-            done();
-        });
-    });
-
-    it('typeQuery', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
-        properties.typeQuery(payload[0].entity, function(error, response, properties) {
-            expect(error).to.be.null;
-            expect(response.statusCode).to.equal(200);
-            expect(properties).to.be.satisfy(Array.isArray);
-            done();
-        });
-    });
-
-    it('insert', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/insert.json'));
-
-        properties.insert(payload, function(error, response) {
-            expect(response.statusCode).to.equal(200);
-            done();
-        });
-    });
-
-    it('delete', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/delete/delete.json'));
-
-        properties.delete(payload, function(error, response) {
-            expect(response.statusCode).to.equal(200);
-            done();
-        });
-    });
 });

@@ -35,7 +35,7 @@ Entities.prototype.list = function(callback) {
 };
 
 /**
- * Retrieve properties and tags for the specified entity.
+ * Retrieve propertiesMethod and tags for the specified entity.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/get.md Get}
  *
  * @param {String} entity name of entity
@@ -50,9 +50,9 @@ Entities.prototype.get = function(entity, callback) {
 };
 
 /**
- * Create an entity with specified properties and tags or replace
- * the properties and tags of an existing entity.
- * This method creates a new entity or replaces the properties and tags of an existing entity.
+ * Create an entity with specified propertiesMethod and tags or replace
+ * the propertiesMethod and tags of an existing entity.
+ * This method creates a new entity or replaces the propertiesMethod and tags of an existing entity.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/create-or-replace.md Create or Replace}
  *
  * @param {String} entity
@@ -68,8 +68,8 @@ Entities.prototype.create = function(entity, payload, callback) {
 };
 
 /**
- * Update specified properties and tags for the given entity.
- * PATCH method updates specified properties and tags for an existing entity.
+ * Update specified propertiesMethod and tags for the given entity.
+ * PATCH method updates specified propertiesMethod and tags for an existing entity.
  * Properties and tags that are not specified are left unchanged.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/update.md Update}
  *

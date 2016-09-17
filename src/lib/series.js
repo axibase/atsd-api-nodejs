@@ -7,7 +7,7 @@
 var util = require('util');
 var ATSDClient = require('./client').ATSDClient;
 
-var Series = exports.Series = function(options) {
+var Series = exports.Series = function (options) {
     ATSDClient.call(this, options);
 };
 
@@ -51,9 +51,9 @@ Series.unit = {
  * @param {Array} payload  - body of queries
  * @param {Function} callback function- returned response, error, and body
  */
-Series.prototype.query = function(payload, callback) {
+Series.prototype.query = function (payload, callback) {
     var path = 'series/query';
-    this.postRequest(path, {}, payload, function(error, response, body) {
+    this.postRequest(path, {}, payload, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -69,7 +69,7 @@ Series.prototype.query = function(payload, callback) {
  * @param {Date} endTime - end time of selected metric
  * @param {Function} callback - result callback function with response, error and list of selected series
  */
-Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime, callback) {
+Series.prototype.queryDetail = function (metric, entity, tags, startTime, endTime, callback) {
     var q = {
         metric: metric,
         entity: entity,
@@ -90,7 +90,7 @@ Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime
     var payload = [];
 
     payload.push(q);
-    this.query(payload, function(error, response, body) {
+    this.query(payload, function (error, response, body) {
         callback(error, response, body[0]);
     });
 };
@@ -108,7 +108,7 @@ Series.prototype.queryDetail = function(metric, entity, tags, startTime, endTime
  * @param {String} period
  * @param {Function} callback
  */
-Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endTime, statistic, period, callback) {
+Series.prototype.queryStatistic = function (metric, entity, tags, startTime, endTime, statistic, period, callback) {
     var q = {
         'metric': metric,
         'entity': entity,
@@ -133,7 +133,7 @@ Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endT
 
     var payload = [];
     payload.push(q);
-    this.query(payload, function(error, response, body) {
+    this.query(payload, function (error, response, body) {
         callback(error, response, body[0]);
     });
 };
@@ -145,10 +145,10 @@ Series.prototype.queryStatistic = function(metric, entity, tags, startTime, endT
  * @param {Object} payload
  * @param {Function} callback
  */
-Series.prototype.insert = function(payload, callback) {
+Series.prototype.insert = function (payload, callback) {
     var path = 'series/insert';
 
-    this.postRequest(path, {}, payload, function(error, response, body) {
+    this.postRequest(path, {}, payload, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -164,7 +164,7 @@ Series.prototype.insert = function(payload, callback) {
  * @param {Object} data - array of added metric
  * @param {Function} callback - result callback function
  */
-Series.prototype.insertData = function(metric, entity, tags, data, callback) {
+Series.prototype.insertData = function (metric, entity, tags, data, callback) {
     var payload = [
         {
             metric: metric,
@@ -174,7 +174,7 @@ Series.prototype.insertData = function(metric, entity, tags, data, callback) {
         }
     ];
 
-    this.insert(payload, function(error, response, body) {
+    this.insert(payload, function (error, response, body) {
         callback(error, response, body);
     });
 };

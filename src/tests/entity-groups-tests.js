@@ -36,7 +36,7 @@ describe('EntityGroups Test', function() {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/create/create.json'));
         entityGroups.create(entityGroup, payload, function(error, response) {
             expect(error).to.be.null;
-            expect(response.statusCode).to.be.oneOf([200, 404]);
+            expect(response.statusCode).to.be.oneOf([200,404]);
             done();
         });
     });

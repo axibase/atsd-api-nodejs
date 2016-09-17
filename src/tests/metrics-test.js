@@ -29,7 +29,7 @@ describe('Metrics Test', function() {
         var metric = 'actions_per_minute';
         metrics.get(metric, function(error, response, data) {
             expect(error).to.be.null;
-            expect(response.statusCode).to.equal(200);
+            expect(response.statusCode).to.be.oneOf([200,404]);
             expect(data).to.be.a('object');
         });
         done();
