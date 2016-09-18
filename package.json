@@ -26,15 +26,18 @@
     "jscs": "jscs **.js src/**/**.js",
     "lint": "jshint **.js",
     "test": "mocha ./test/ --timeout 10000",
-    "prebuild": "npm run jscs && npm run lint && npm run test-cov",
-    "test-cov": "istanbul cover _mocha -- -R spec src/**/*.js"
+    "prebuild": "npm run jscs && npm run lint && npm run test-cov && npm run codacy-cov",
+    "test-cov": "istanbul cover _mocha -- -R spec test/*.js",
+    "codacy-cov": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage"
   },
   "pre-commit": [
     "lint",
     "jscs",
-    "test"
+    "test",
+    "test-cov"
   ],
   "dependencies": {
+    "codacy-coverage": "^2.0.0",
     "lodash": "^4.13.1",
     "npmlog": "^3.0.0",
     "request": "^2.72.0",

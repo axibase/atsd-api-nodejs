@@ -10,26 +10,80 @@ var Messages = require('../src/lib/messages').Messages;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
-var testDataQueryPath = __dirname + '/data/messages';
 var messages = new Messages(options);
 
-describe.skip('Messages Test', function() {
+describe('Messages Test', function () {
+    var MESSAGE_INSERT_DELAY = 1000;
+    it('query', function (done) {
+        var startDate = new Date();
+        var payload = [
+            {
+                entity: 'nodejs-api-message-query-entity',
+                type: 'nodejs-api-message-query-type',
+                message: 'message',
+                severity: 'MAJOR',
+                source: 'nodejs-api-test'
+            }
+        ];
 
-    it('query', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
+        var messagesFilter = [
+            {
+                entity: payload[0].entity,
+                type: payload[0].type,
+                startDate: startDate.toISOString(),
+                endDate: 'now'
+            }
+        ];
+        var expectedMessages = payload;
 
-        messages.query(payload, function(error, response) {
-            expect(response.statusCode).to.equal(200);
-            done();
+        messages.insert(payload, function () {
+            setTimeout(function () {
+                messages.query(messagesFilter, function (error, response, actualMessages) {
+                    expect(error).to.be.null;
+                    expect(response.statusCode).equal(200);
+                    expect(actualMessages.length).equal(1);
+                    expect(actualMessages.message).equal(expectedMessages.message);
+                    expect(actualMessages.entity).equal(expectedMessages.entity);
+                    expect(actualMessages.severity).equal(expectedMessages.severity);
+                    done();
+                });
+            }, MESSAGE_INSERT_DELAY);
         });
     });
 
-    it('insert', function(done) {
-        var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/insert/insert.json'));
+    it('insert', function (done) {
+        var startDate = new Date();
+        var payload = [
+            {
+                entity: 'nodejs-api-message-insert-entity',
+                type: 'nodejs-api-message-insert-type',
+                message: 'message',
+                severity: 'MAJOR',
+                source: 'nodejs-api-test'
+            }
+        ];
 
-        messages.insert(payload, function(error, response) {
+        var messagesFilter = [
+            {
+                entity: payload[0].entity,
+                type: payload[0].type,
+                startDate: startDate.toISOString(),
+                endDate: 'now'
+            }
+        ];
+        var expectedMessages = payload;
+
+        messages.insert(payload, function (error, response) {
             expect(response.statusCode).to.equal(200);
-            done();
+            setTimeout(function () {
+                messages.query(messagesFilter, function (error, response, actualMessages) {
+                    expect(actualMessages.length).equal(1);
+                    expect(actualMessages.message).equal(expectedMessages.message);
+                    expect(actualMessages.entity).equal(expectedMessages.entity);
+                    expect(actualMessages.severity).equal(expectedMessages.severity);
+                    done();
+                });
+            }, MESSAGE_INSERT_DELAY);
         });
     });
 });
