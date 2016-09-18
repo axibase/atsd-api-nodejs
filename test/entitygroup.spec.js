@@ -5,14 +5,14 @@
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the 'expect' style of Chai
-var EntityGroups = require('../lib/entity-groups').EntityGroups;
+var EntityGroups = require('../src/lib/entity-groups').EntityGroups;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
 var testDataQueryPath = __dirname + '/data/entity-groups';
 var entityGroups = new EntityGroups(options);
 
-describe('EntityGroups Test', function() {
+describe.skip('EntityGroups Test', function() {
     it('all entity groups', function(done) {
         entityGroups.list(function(error, response, data) {
             expect(response.statusCode).to.equal(200);

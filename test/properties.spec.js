@@ -6,7 +6,7 @@
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the 'expect' style of Chai
-var Properties = require('../lib/properties').Properties;
+var Properties = require('../src/lib/properties').Properties;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));

@@ -1,21 +1,23 @@
 'use strict';
+
 /**
  * @author Igor Shmagrinskiy <unrealwork@gmail.com>
  */
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the 'expect' style of Chai
-var Entities = require('../lib/entities').Entities;
+var Metrics = require('../src/lib/metrics').Metrics;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
-var testDataQueryPath = __dirname + '/data/entities';
-var entities = new Entities(options);
+var testDataQueryPath = __dirname + '/data/metrics';
+var metrics = new Metrics(options);
 
-describe('Entities Test', function() {
+describe.skip('Metrics Test', function() {
 
-    it('all entities', function(done) {
-        entities.list(function(error, response, data) {
+    it('all metrics', function(done) {
+        metrics.list(function(error, response, data) {
+
             expect(error).to.be.null;
             expect(response.statusCode).to.equal(200);
             expect(data).to.satisfy(Array.isArray);
@@ -23,20 +25,20 @@ describe('Entities Test', function() {
         done();
     });
 
-    it('specified entities', function(done) {
-        var entity = 'atsd';
-        entities.get(entity, function(error, response, data) {
+    it('specified metrics', function(done) {
+        var metric = 'actions_per_minute';
+        metrics.get(metric, function(error, response, data) {
             expect(error).to.be.null;
-            expect(response.statusCode).to.equal(200);
+            expect(response.statusCode).to.be.oneOf([200,404]);
             expect(data).to.be.a('object');
         });
         done();
     });
 
     it('create', function(done) {
-        var entity = 'my-entity';
+        var metric = 'my-metric';
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/create/create.json'));
-        entities.create(entity, payload, function(error, response) {
+        metrics.create(metric, payload, function(error, response) {
             expect(error).to.be.null;
             expect(response.statusCode).to.equal(200);
         });
@@ -44,18 +46,18 @@ describe('Entities Test', function() {
     });
 
     it('update', function(done) {
-        var entity = 'my-entity';
+        var metric = 'my-metric';
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/update/update.json'));
-        entities.update(entity, payload, function(error, response) {
+        metrics.update(metric, payload, function(error, response) {
             expect(error).to.be.null;
-            expect(response.statusCode).to.oneOf([200, 400]);
+            expect(response.statusCode).to.oneOf([200, 404]);
         });
         done();
     });
 
     it('delete', function(done) {
-        var entity = 'my-entity';
-        entities.delete(entity, function(error, response) {
+        var metric = 'my-metric';
+        metrics.delete(metric, function(error, response) {
             expect(error).to.be.null;
             expect(response.statusCode).to.oneOf([200, 400]);
         });

@@ -59,7 +59,7 @@
   // {int} Max cyclomatic complexity per function
   "maxlen": false,
   // {int} Max number of characters per line
-  "varstmt": true,
+  "varstmt": false,
   // true: Disallow any var statements. Only `let` and `const` are allowed.
 
   // Relaxing
