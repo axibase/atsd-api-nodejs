@@ -2,9 +2,7 @@
  * Created by shmgrinsky on 09.06.16.
  */
 'use strict';
-/**
- * @ author Igor Shmagrinskiy
- */
+
 var util = require('util');
 var ATSDClient = require('./client').ATSDClient;
 exports.EntityGroups = EntityGroups;

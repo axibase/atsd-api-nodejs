@@ -1,8 +1,4 @@
 'use strict';
-/**
- * API methods for ATSD Series component
- * @author Igor Shmagrinskiy
- */
 
 var util = require('util');
 var ATSDClient = require('./client').ATSDClient;

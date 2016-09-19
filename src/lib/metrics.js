@@ -1,7 +1,4 @@
 'use strict';
-/**
- * @author Igor Shmagrinsky <unrealwork@gmail.com>
- */
 
 var util = require('util');
 var ATSDClient = require('./client').ATSDClient;
