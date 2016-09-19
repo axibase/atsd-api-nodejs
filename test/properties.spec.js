@@ -10,7 +10,6 @@ var Properties = require('../src/lib/properties').Properties;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
-var testDataQueryPath = __dirname + '/data/propertiesMethod';
 var propertiesMethod = new Properties(options);
 
 describe('Properties Test', function () {
@@ -65,16 +64,6 @@ describe('Properties Test', function () {
                     fstype: 'ext4'
                 },
                 date: '2016-05-25T04:15:00.000Z'
-            }
-        ];
-
-        var queries = [
-            {
-                type: payload[0].type,
-                entity: payload[0].entity,
-                key: payload[0].key,
-                startDate: '2016-05-25T04:15:00.000Z',
-                endDate: '2016-05-25T04:15:00.001Z'
             }
         ];
 
@@ -161,6 +150,34 @@ describe('Properties Test', function () {
                     expect(deletedProperties).to.be.empty;
                     done();
                 });
+            });
+        });
+
+    });
+
+    it('getPropertyTypes', function (done) {
+        var payload = [
+            {
+                type: 'nodejs-api-properties-get-types-type',
+                entity: 'nodejs-api-properties-get-types-entity',
+                key: {
+                    fs: '/',
+                    mp: 'sda1'
+                },
+                tags: {
+                    fstype: 'ext4'
+                },
+                date: '2016-05-25T04:15:00.000Z'
+            }
+        ];
+
+        var expectedTypes = [payload[0].type];
+
+        propertiesMethod.insert(payload, function () {
+            propertiesMethod.getPropertyTypes(payload[0].entity, function (error, response, actualTypes) {
+                expect(response.statusCode).to.equal(200);
+                expect(actualTypes).to.eql(expectedTypes);
+                done();
             });
         });
 

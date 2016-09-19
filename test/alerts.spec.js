@@ -13,7 +13,7 @@ var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
 var testDataQueryPath = __dirname + '/data/alerts';
 var alerts = new Alerts(options);
 
-describe.skip('Alerts Test', function() {
+describe('Alerts Test', function() {
 
     it('query', function(done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
