@@ -1,6 +1,6 @@
 # ATSD Node.js API client
 
-The ATSD API Client for Node.js enables developers to easily interact with Axibase Time Series Database through its [Data](https://github.com/axibase/atsd-docs/blob/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd-docs/blob/master/api/meta/README.md) API.
+The ATSD API Client for Node.js enables developers to easily interact with the Axibase Time Series Database through its [Data](https://github.com/axibase/atsd-docs/blob/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd-docs/blob/master/api/meta/README.md) API.
 
 ## Installation
 
@@ -14,7 +14,7 @@ $ sudo npm install atsd-api
 
 ### ATSD Client
 
-The base class is `ATSDClient`, an instance of which can be created using `ATSDClient(options)` where `options` is an object:
+The base class is `ATSDClient`, an instance which can be created using `ATSDClient(options)` where `options` is an object:
 
  Key         | Description                         | Required
 -------------|-------------------------------------|-----------------------
@@ -23,7 +23,7 @@ The base class is `ATSDClient`, an instance of which can be created using `ATSDC
  `password`  | password                            | yes
  `strictSSL` | requires SSL certificate validation | no, `true` by default
 
-The purpose of `ATSDClient` is to make general requests to ATSD. It has an asynchronous method `request` as well as separate methods for each type of request:
+The purpose of `ATSDClient` is to make general requests to ATSD. It has an asynchronous method `request`, as well as separate methods for each type of request:
 
 ```
 ATSDClient.request(method, path, params, payload, callback)
@@ -41,15 +41,15 @@ The arguments are as follows:
 
  Argument   | Type                            | Description
 ------------|---------------------------------|-----------------------------------------------------------------------------------
- `method`   | string                          | request method: `GET`, `POST`, `PUT`, `PATCH` or `DELETE`
- `path`     | string                          | path to be added to base ATSD url, e.g. `metrics` turns into `atsd_server/api/v1/metrics`
- `params`   | object                          | url query string parameters
- `payload`  | object                          | json request paylod 
- `callback` | function(error, response, body) | callback function
+ `method`   | string                          | Request method: `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`.
+ `path`     | string                          | Path to be added to base ATSD url, i.e. `metrics` turns into `atsd_server/api/v1/metrics`.
+ `params`   | object                          | url query string parameters.
+ `payload`  | object                          | json request paylod.
+ `callback` | function(error, response, body) | Callback function.
 
 ### API Methods
 
-`Entities`, `Metrics`, `Properties`, `Alerts` and `Series` are all subclasses of `ATSDClient` and use the same constructor. They hold the implementations of [ATSD API methods](https://axibase.com/atsd/api/):
+`Entities`, `Metrics`, `Properties`, `Alerts`, and `Series` are all subclasses of `ATSDClient` and use the same constructor. They hold the implementations of [ATSD API methods](https://axibase.com/atsd/api/):
 
 #### Data API
 
@@ -99,16 +99,16 @@ API method                                                                      
   [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/replace-entities.md)        | `EntityGroups.replaceEntities(entity-group, payload, callback)`
   [Entity Groups: DeleteEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete-entities.md)        | `EntityGroups.deleteEntities(entity-group, payload, callback)`
 
-There is also a number of convenience functions dedicated to making some requests easier to make. Unlike the functions listed above they don't replicate the signatures of ATSD API methods.
+There is also a number of convenience functions dedicated to making some requests easier to execute. Unlike the functions listed above, they don't replicate the signatures of ATSD API methods.
 
  Client function                                                                                | Equivalent to                                                                                                                          | Note
 ------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------
- `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                                                             | `timeFormat` for response is set to `iso`; instead of `{'series': [...]}` returns `[...]`
- `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`) or a Date object
- `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | same as above                                                                                                                          | same as above
+ `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                                                             | `timeFormat` for response is set to `iso`; instead of `{'series': [...]}` returns `[...]`.
+ `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`), or a Date object.
+ `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | Same as above.                                                                                                                          | Same as above.
  `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. | 
 
-For statistics and units used to aggregate the data through series queries there exist corresponding "enumerations" in class Series: `Series.statistic` and `Series.unit`.
+For statistics and units used to aggregate the data through series queries, there exist corresponding "enumerations" in class Series: `Series.statistic` and `Series.unit`.
 
 ## Setup
 
@@ -298,7 +298,7 @@ properties.insert(
 > Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1448122917843}]
 ```
 
-### Series dump
+### Series Dump
 
 ```javascript
 entities.getAll({}, function (error_entities, _, body_entities) {
