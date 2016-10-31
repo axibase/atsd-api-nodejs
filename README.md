@@ -7,7 +7,7 @@ The ATSD API Client for Node.js enables developers to easily interact with the A
 This client can be installed using npm:
 
 ```
-$ sudo npm install atsd-api
+$ sudo  npm install atsd-api
 ```
 
 ## Usage
@@ -71,7 +71,7 @@ The arguments are as follows:
  **Messages**                                                                                                 | `Messages(options)`
  [Messages: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/query.md)               | `Messages.query(payload, callback)`
  [Messages: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/insert.md)             | `Messages.insert(payload, callback)`
- 
+
 #### Meta API
 
 API method                                                                                                   | Client function
@@ -106,7 +106,7 @@ There is also a number of convenience functions dedicated to making some request
  `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                                                             | `timeFormat` for response is set to `iso`; instead of `{'series': [...]}` returns `[...]`.
  `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`), or a Date object.
  `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | Same as above.                                                                                                                          | Same as above.
- `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. | 
+ `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. |
 
 For statistics and units used to aggregate the data through series queries, there exist corresponding "enumerations" in class Series: `Series.statistic` and `Series.unit`.
 
