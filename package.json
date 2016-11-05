@@ -31,8 +31,7 @@
   },
   "pre-commit": [
     "lint",
-    "jscs",
-    "test"
+    "jscs"
   ],
   "dependencies": {
     "lodash": "^4.13.1",
