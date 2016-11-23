@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/unrealwork/atsd-api-nodejs.svg?style=svg)](https://circleci.com/gh/unrealwork/atsd-api-nodejs) [![Code Climate](https://codeclimate.com/github/unrealwork/atsd-api-nodejs/badges/gpa.svg)](https://codeclimate.com/github/unrealwork/atsd-api-nodejs) [![codecov](https://codecov.io/gh/unrealwork/atsd-api-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/unrealwork/atsd-api-nodejs)
 # ATSD Node.js API client
 
 The ATSD API Client for Node.js enables developers to easily interact with the Axibase Time Series Database through its [Data](https://github.com/axibase/atsd-docs/blob/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd-docs/blob/master/api/meta/README.md) API.

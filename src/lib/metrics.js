@@ -1,26 +1,23 @@
 'use strict';
-/**
- * @author Igor Shmagrinsky <unrealwork@gmail.com>
- */
 
 var util = require('util');
-var ATSDClient = require('./client').ATSDClient;
+var HttpClient = require('./client').HttpClient;
 
 exports.Metrics = Metrics;
 var metricsPath = 'metrics';
 
 /**
- * Class implements all methods available in MetricsAPI
+ * Class implements all METHOD available in MetricsAPI
  *
  * @class
  * @param {Object} options
  * @constructor
  */
 function Metrics(options) {
-    ATSDClient.call(this, options);
+    HttpClient.call(this, options);
 }
 
-util.inherits(Metrics, ATSDClient);
+util.inherits(Metrics, HttpClient);
 
 /**
  * Retrieve all metrics available in your ATSD instance
@@ -52,8 +49,8 @@ Metrics.prototype.get = function(metric, callback) {
 };
 
 /**
- * Create a metric with specified properties and tags or replace an existing metric.
- * If the metric exists, all of its current properties and tags will
+ * Create a metric with specified propertiesMethod and tags or replace an existing metric.
+ * If the metric exists, all of its current propertiesMethod and tags will
  * be overwritten with fields specified in the request.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/create-or-replace.md Create}
  *
@@ -70,7 +67,7 @@ Metrics.prototype.create = function(metric, payload, callback) {
 };
 
 /**
- * Update specified properties and tags for an existing metric.
+ * Update specified propertiesMethod and tags for an existing metric.
  * Properties and tags that are not specified in the request are left unchanged.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/update.md Update}
  *

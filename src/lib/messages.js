@@ -1,13 +1,11 @@
 'use strict';
-/**
- * @author Igor Shmagrinskiy
- */
+
 var util = require('util');
-var ATSDClient = require('./client').ATSDClient;
+var HttpClient = require('./client').HttpClient;
 var Messages = exports.Messages = function(options) {
-    ATSDClient.call(this, options);
+    HttpClient.call(this, options);
 };
-util.inherits(Messages, ATSDClient);
+util.inherits(Messages, HttpClient);
 var messagesPath = 'messages';
 
 /**
