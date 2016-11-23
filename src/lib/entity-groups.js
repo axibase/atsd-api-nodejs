@@ -113,10 +113,11 @@ EntityGroups.prototype.addEntities = function (entityGroup, payload, callback) {
  *
  * @param {String} entityGroup name of entity group
  * @param {Object} payload body of request
+ * @param {Object} params query params
  * @param {Function} callback result function
  */
-EntityGroups.prototype.replaceEntities = function (entityGroup, payload, callback) {
-    methodTemplate(METHOD.PATCH, true, payload, callback, 'replace');
+EntityGroups.prototype.setEntities = function (entityGroup, payload, params, callback) {
+    methodTemplate(METHOD.PATCH, true, params, payload, callback, 'set');
 };
 
 /**

@@ -97,7 +97,7 @@ API method                                                                      
   [Entity Groups: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete.md)        | `EntityGroups.delete(entity-group, callback)`
   [Entity Groups: GetEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get-entities.md)              | `EntityGroups.getEntities(entity, params, callback)`
   [Entity Groups: AddEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/add-entities.md)| `EntityGroups.addEntities(entity-group, payload, callback)`
-  [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/replace-entities.md)        | `EntityGroups.replaceEntities(entity-group, payload, callback)`
+  [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/replace-entities.md)        | `EntityGroups.setEntities(entity-group, payload, callback)`
   [Entity Groups: DeleteEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete-entities.md)        | `EntityGroups.deleteEntities(entity-group, payload, callback)`
 
 There is also a number of convenience functions dedicated to making some requests easier to execute. Unlike the functions listed above, they don't replicate the signatures of ATSD API methods.
