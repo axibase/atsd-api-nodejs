@@ -6,37 +6,34 @@
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the 'expect' style of Chai
-var Alerts = require('../lib/alerts').Alerts;
 var fs = require('fs');
-var testOptionsPath = __dirname + '/test-options.json';
-var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));
 var testDataQueryPath = __dirname + '/data/alerts';
-var alerts = new Alerts(options);
+var alerts = require('./test-util').client.data.alerts;
 
-describe('Alerts Test', function() {
+describe('Alerts Test', function () {
 
-    it('query', function(done) {
+    it('query', function (done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/query/query.json'));
 
-        alerts.query(payload, function(error, response) {
+        alerts.query(payload, function (error, response) {
             expect(response.statusCode).to.equal(200);
             done();
         });
     });
 
-    it('update', function(done) {
+    it('update', function (done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/update/update.json'));
 
-        alerts.update(payload, function(error, response) {
+        alerts.update(payload, function (error, response) {
             expect(response.statusCode === 200).to.equal(true);
             done();
         });
     });
 
-    it('alertsHistory', function(done) {
+    it('alertsHistory', function (done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/history-query/history-query.json'));
 
-        alerts.historyQuery(payload, function(error, response, body) {
+        alerts.historyQuery(payload, function (error, response, body) {
             expect(response.statusCode).to.oneOf([200, 404]);
             if (response.statusCode === 200) {
                 expect(body).to.satisfy(Array.isArray);
@@ -47,9 +44,9 @@ describe('Alerts Test', function() {
         });
     });
 
-    it('delete', function(done) {
+    it('delete', function (done) {
         var payload = JSON.parse(fs.readFileSync(testDataQueryPath + '/delete/delete.json'));
-        alerts.delete(payload, function(error, response) {
+        alerts.delete(payload, function (error, response) {
             expect(response.statusCode === 200).to.equal(true);
             done();
         });

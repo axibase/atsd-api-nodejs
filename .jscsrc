@@ -12,7 +12,8 @@
 
   "disallowSpacesInsideObjectBrackets": null,
   "disallowImplicitTypeConversion": ["string"],
-
+  "disallowSpacesInFunctionExpression": null,
+  "disallowSpacesInAnonymousFunctionExpression": null,
   "safeContextKeyword": "_this",
 
   "jsDoc": {

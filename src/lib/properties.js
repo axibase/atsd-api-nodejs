@@ -1,19 +1,15 @@
 'use strict';
 
-/**
- * @author Igor Shmagrinskiy
- */
-
 var util = require('util');
 
-var ATSDClient = require('./client').ATSDClient;
+var HttpClient = require('./client').HttpClient;
 
-var Properties = exports.Properties = function(options) {
-    ATSDClient.call(this, options);
+var Properties = exports.Properties = function (options) {
+    HttpClient.call(this, options);
 };
 
 var propertiesPath = 'properties';
-util.inherits(Properties, ATSDClient);
+util.inherits(Properties, HttpClient);
 
 /**
  * Retrieve property records matching specified filters.
@@ -22,10 +18,10 @@ util.inherits(Properties, ATSDClient);
  * @param {Object} payload - request body
  * @param {Function} callback - result function
  */
-Properties.prototype.query = function(payload, callback) {
+Properties.prototype.query = function (payload, callback) {
     var path = propertiesPath + '/query';
 
-    this.postRequest(path, {}, payload, function(error, response, body) {
+    this.postRequest(path, {}, payload, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -37,10 +33,10 @@ Properties.prototype.query = function(payload, callback) {
  * @param {String} entity - name of entity
  * @param {Function} callback - result function
  */
-Properties.prototype.typeQuery = function(entity, callback) {
+Properties.prototype.typeQuery = function (entity, callback) {
     var path = propertiesPath + '/' + entity + '/types';
 
-    this.getRequest(path, {}, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -54,10 +50,10 @@ Properties.prototype.typeQuery = function(entity, callback) {
  * @private
  */
 
-Properties.prototype._getPropertyTypes = function(entity, callback) {
-    var path = 'alerts/' + entity + '/types';
+Properties.prototype.getPropertyTypes = function (entity, callback) {
+    var path = propertiesPath + '/' + entity + '/types';
 
-    this.getRequest(path, {}, {}, function(error, response, body) {
+    this.getRequest(path, {}, {}, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -69,10 +65,10 @@ Properties.prototype._getPropertyTypes = function(entity, callback) {
  * @param {Object} payload - body of the request
  * @param {Function} callback - result function
  */
-Properties.prototype.insert = function(payload, callback) {
+Properties.prototype.insert = function (payload, callback) {
     var path = propertiesPath + '/insert';
 
-    this.postRequest(path, {}, payload, function(error, response, body) {
+    this.postRequest(path, {}, payload, function (error, response, body) {
         callback(error, response, body);
     });
 };
@@ -84,10 +80,10 @@ Properties.prototype.insert = function(payload, callback) {
  * @param {Object} payload
  * @param {Function} callback
  */
-Properties.prototype.delete = function(payload, callback) {
+Properties.prototype.delete = function (payload, callback) {
     var path = propertiesPath + '/delete';
 
-    this.postRequest(path, {}, payload, function(error, response, body) {
+    this.postRequest(path, {}, payload, function (error, response, body) {
         callback(error, response, body);
     });
 };

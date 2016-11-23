@@ -2,26 +2,26 @@
  * Created by shmgrinsky on 09.06.16.
  */
 'use strict';
-/**
- * @ author Igor Shmagrinskiy
- */
-var util = require('util');
-var ATSDClient = require('./client').ATSDClient;
-exports.EntityGroups = EntityGroups;
-var entitiesPath = 'entity-groups';
 
+var util = require('util');
+var HttpClient = require('./client').HttpClient;
+exports.EntityGroups = EntityGroups;
+var METHOD = HttpClient.METHOD;
+var format = require('string-format');
+var _this;
 /**
- * Class implements all methods available in EntitiesAPI
+ * Class implements all METHOD available in EntitiesAPI
  *
  * @class
  * @param {Object} options
  * @constructor
  */
 function EntityGroups(options) {
-    ATSDClient.call(this, options);
+    HttpClient.call(this, options);
+    _this = this;
 }
 
-util.inherits(EntityGroups, ATSDClient);
+util.inherits(EntityGroups, HttpClient);
 
 /**
  * Retrieve all entity groups available in your ATSD instance
@@ -29,48 +29,38 @@ util.inherits(EntityGroups, ATSDClient);
  *
  * @param {Function} callback result function
  */
-EntityGroups.prototype.list = function(callback) {
-    this.getRequest(entitiesPath, {}, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.list = function (callback, params) {
+    methodTemplate(METHOD.GET, '', false, params, {}, callback);
 };
 
 /**
- * Displays entity group properties and all tags.
+ * Displays entity group propertiesMethod and all tags.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get.md Get}
  *
  * @param {String} entityGroup name of entity group
  * @param {Function} callback result function
  */
-EntityGroups.prototype.get = function(entityGroup, callback) {
-    var path = entitiesPath + '/' + entityGroup;
-
-    this.getRequest(path, {}, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.get = function (entityGroup, callback) {
+    methodTemplate(METHOD.GET, entityGroup, false, {}, {}, callback);
 };
 
 /**
- * Create an entity group with specified properties and tags or
- * replace properties and tags for an existing entity group.
- * This method creates a new entity group or replaces the properties and tags of an existing entity group.
+ * Create an entity group with specified propertiesMethod and tags or
+ * replace propertiesMethod and tags for an existing entity group.
+ * This method creates a new entity group or replaces the propertiesMethod and tags of an existing entity group.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/create-or-replace.md Create}
  *
  * @param {String} entityGroup name of entity group
  * @param {Object} payload body of request
  * @param {Function} callback result function
  */
-EntityGroups.prototype.create = function(entityGroup, payload, callback) {
-    var path = entitiesPath + '/' + entityGroup;
-
-    this.putRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.create = function (entityGroup, payload, callback) {
+    methodTemplate(METHOD.PUT, entityGroup, false, {}, payload, callback);
 };
 
 /**
- * Update specified properties and tags for the given entity.
- * PATCH method updates specified properties and tags for an existing entity.
+ * Update specified propertiesMethod and tags for the given entity.
+ * PATCH method updates specified propertiesMethod and tags for an existing entity.
  * Properties and tags that are not specified are left unchanged.
  * {@link https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/update.md Update}
  *
@@ -78,12 +68,8 @@ EntityGroups.prototype.create = function(entityGroup, payload, callback) {
  * @param {Object} payload body of request
  * @param {Function} callback result function
  */
-EntityGroups.prototype.update = function(entityGroup, payload, callback) {
-    var path = entitiesPath + '/' + entityGroup;
-
-    this.patchRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.update = function (entityGroup, payload, callback) {
+    methodTemplate(METHOD.PATCH, entityGroup, false, {}, payload, callback);
 };
 
 /**
@@ -94,12 +80,8 @@ EntityGroups.prototype.update = function(entityGroup, payload, callback) {
  * @param {String} entityGroup name of entity group
  * @param {Function} callback result function
  */
-EntityGroups.prototype.delete = function(entityGroup, callback) {
-    var path = entitiesPath + '/' + entityGroup;
-
-    this.deleteRequest(path, {}, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.delete = function (entityGroup, callback) {
+    methodTemplate(METHOD.DELETE, entityGroup, false, {}, {}, callback);
 };
 
 /**
@@ -109,12 +91,8 @@ EntityGroups.prototype.delete = function(entityGroup, callback) {
  * @param {String} entityGroup name of entity group
  * @param {Function} callback result function
  */
-EntityGroups.prototype.getEntities = function(entityGroup, callback) {
-    var path = entitiesPath + '/' + entityGroup + '/entities';
-
-    this.getRequest(path, {}, {}, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.getEntities = function (entityGroup, callback) {
+    methodTemplate(METHOD.GET, entityGroup, true, {}, {}, callback);
 };
 
 /**
@@ -125,12 +103,8 @@ EntityGroups.prototype.getEntities = function(entityGroup, callback) {
  * @param {Object} payload body of request
  * @param {Function} callback result function
  */
-EntityGroups.prototype.addEntities = function(entityGroup, payload, callback) {
-    var path = entitiesPath + '/' + entityGroup + '/entities';
-
-    this.patchRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.addEntities = function (entityGroup, payload, callback) {
+    methodTemplate(METHOD.POST, entityGroup, true, {}, payload, callback, 'add');
 };
 
 /**
@@ -141,12 +115,8 @@ EntityGroups.prototype.addEntities = function(entityGroup, payload, callback) {
  * @param {Object} payload body of request
  * @param {Function} callback result function
  */
-EntityGroups.prototype.replaceEntities = function(entityGroup, payload, callback) {
-    var path = entitiesPath + '/' + entityGroup + '/entities';
-
-    this.putRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.replaceEntities = function (entityGroup, payload, callback) {
+    methodTemplate(METHOD.PATCH, true, payload, callback, 'replace');
 };
 
 /**
@@ -157,10 +127,19 @@ EntityGroups.prototype.replaceEntities = function(entityGroup, payload, callback
  * @param {Object} payload body of request
  * @param {Function} callback result function
  */
-EntityGroups.prototype.deleteEntities = function(entityGroup, payload, callback) {
-    var path = entitiesPath + '/' + entityGroup + '/entities';
-
-    this.patchRequest(path, {}, payload, function(error, response, body) {
-        callback(error, response, body);
-    });
+EntityGroups.prototype.deleteEntities = function (entityGroup, payload, callback) {
+    methodTemplate(METHOD.DELETE, entityGroup, true, {}, payload, callback, 'delete');
 };
+
+function methodTemplate(method, entityGroup, isEntitiesEdit, params,
+                        payload, callback, action) {
+    var path = pathTemplate(entityGroup, isEntitiesEdit, action);
+    _this.request(method, path, params, payload, function (err, response, body) {
+        callback(err, response, body);
+    });
+}
+
+function pathTemplate(entityGroup, isEntity, action) {
+    var entityGroupPath = format('entity-groups/{}', entityGroup);
+    return (isEntity) ? format('{}/entities/{}', entityGroupPath, action) : entityGroupPath;
+}

@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var ATSDClient = require('./../lib/client').ATSDClient;
+var ATSDClient = require('./../src/lib/client').HttpClient;
 var fs = require('fs');
 var testOptionsPath = __dirname + '/test-options.json';
 var options = JSON.parse(fs.readFileSync(testOptionsPath, 'utf8'));

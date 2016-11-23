@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    ATSDClient: require('./src/lib/client').ATSDClient,
+    HttpClient: require('./src/lib/client').HttpClient,
     Entities: require('./src/lib/entities').Entities,
     Metrics: require('./src/lib/metrics').Metrics,
     Properties: require('./src/lib/properties').Properties,
