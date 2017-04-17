@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/unrealwork/atsd-api-nodejs.svg?style=svg)](https://circleci.com/gh/unrealwork/atsd-api-nodejs) [![Code Climate](https://codeclimate.com/github/unrealwork/atsd-api-nodejs/badges/gpa.svg)](https://codeclimate.com/github/unrealwork/atsd-api-nodejs) [![codecov](https://codecov.io/gh/unrealwork/atsd-api-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/unrealwork/atsd-api-nodejs)
 # ATSD Node.js API client
 
-The ATSD API Client for Node.js enables developers to easily interact with the Axibase Time Series Database through its [Data](https://github.com/axibase/atsd-docs/blob/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd-docs/blob/master/api/meta/README.md) API.
+The ATSD API Client for Node.js enables developers to easily interact with the Axibase Time Series Database through its [Data](https://github.com/axibase/atsd/tree/master/docs/api/data/README.md) and [Meta](https://github.com/axibase/atsd/tree/master/docs/api/meta/README.md) API.
 
 ## Installation
 
@@ -57,48 +57,48 @@ The arguments are as follows:
  API method                                                                                                   | Client function
 --------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
  **Series**                                                                                                   | `Series(options)`
- [Series: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/series/query.md)                   | `Series.query(payload, callback)`
- [Series: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/series/insert.md)                 | `Series.insert(payload, callback)`
+ [Series: Query](https://github.com/axibase/atsd/tree/master/docs/api/data/series/query.md)                   | `Series.query(payload, callback)`
+ [Series: Insert](https://github.com/axibase/atsd/tree/master/docs/api/data/series/insert.md)                 | `Series.insert(payload, callback)`
  **Alerts**                                                                                                   | `Alerts(options)`
- [Alerts: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/query.md)                   | `Alerts.query(payload, callback)`
- [Alerts: Update](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/update.md)                 | `Alerts.update(payload, callback)`
- [Alerts: History Query](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/history-query.md)   | `Alerts.historyQuery(payload, callback)`
- [Alerts: Delete](https://github.com/axibase/atsd-docs/blob/master/api/data/alerts/delete.md)                 | `Alerts.delete(payload, callback)`
+ [Alerts: Query](https://github.com/axibase/atsd/tree/master/docs/api/data/alerts/query.md)                   | `Alerts.query(payload, callback)`
+ [Alerts: Update](https://github.com/axibase/atsd/tree/master/docs/api/data/alerts/update.md)                 | `Alerts.update(payload, callback)`
+ [Alerts: History Query](https://github.com/axibase/atsd/tree/master/docs/api/data/alerts/history-query.md)   | `Alerts.historyQuery(payload, callback)`
+ [Alerts: Delete](https://github.com/axibase/atsd/tree/master/docs/api/data/alerts/delete.md)                 | `Alerts.delete(payload, callback)`
  **Properties**                                                                                               | `Properties(options)`
- [Properties: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/query.md)           | `Properties.query(payload, callback)`
- [Properties: Type Query](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/type-query.md) | `Properties.typeQuery(payload, callback)`
- [Properties: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/insert.md)          | `Properties.insert(payload, callback)`
- [Properties: Delete](https://github.com/axibase/atsd-docs/blob/master/api/data/properties/delete.md)         | `Properties.delete(payload, callback)`
+ [Properties: Query](https://github.com/axibase/atsd/tree/master/docs/api/data/properties/query.md)           | `Properties.query(payload, callback)`
+ [Properties: Type Query](https://github.com/axibase/atsd/tree/master/docs/api/data/properties/type-query.md) | `Properties.typeQuery(payload, callback)`
+ [Properties: Insert](https://github.com/axibase/atsd/tree/master/docs/api/data/properties/insert.md)         | `Properties.insert(payload, callback)`
+ [Properties: Delete](https://github.com/axibase/atsd/tree/master/docs/api/data/properties/delete.md)         | `Properties.delete(payload, callback)`
  **Messages**                                                                                                 | `Messages(options)`
- [Messages: Query](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/query.md)               | `Messages.query(payload, callback)`
- [Messages: Insert](https://github.com/axibase/atsd-docs/blob/master/api/data/messages/insert.md)             | `Messages.insert(payload, callback)`
+ [Messages: Query](https://github.com/axibase/atsd/tree/master/docs/api/data/messages/query.md)               | `Messages.query(payload, callback)`
+ [Messages: Insert](https://github.com/axibase/atsd/tree/master/docs/api/data/messages/insert.md)             | `Messages.insert(payload, callback)`
 
 #### Meta API
 
-API method                                                                                                   | Client function
--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
-**Entities**                                                                                                 | `Entities(options)`
- [Entities: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/list.md)                  | `Entities.list(params, callback)`
- [Entity: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/get.md)                      | `Entities.get(entity, params, callback)`
- [Entity: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/create-or-replace.md)| `Entities.create(entity, payload, callback)`
- [Entity: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/update.md)                | `Entities.update(entity, payload, callback)`
- [Entity: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity/delete.md)                | `Entities.delete(entity, callback)`
- **Metrics**                                                                                                 | `Metrics(options)`
- [Metrics: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/list.md)                   | `Metrics.list(params, callback)`
- [Metrics: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/get.md)                     | `Metrics.get(entity, params, callback)`
- [Metric: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/create-or-replace.md)| `Metrics.create(metric, payload, callback)`
- [Metric: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/update.md)                | `Metrics.update(metric, payload, callback)`
- [Metric: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/metric/delete.md)                | `Metrics.delete(metric, callback)`
-  **Entity Groups**                                                                                          | `EntityGroups(options)`
-  [Entity Groups: List](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/list.md)            | `EntityGroups.list(params, callback)`
-  [Entity Groups: Get](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get.md)              | `EntityGroups.get(entity, params, callback)`
-  [Entity Groups: Create or Replace](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/create-or-replace.md)| `EntityGroups.create(entity-group, payload, callback)`
-  [Entity Groups: Update](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/update.md)        | `EntityGroups.update(entity-group, payload, callback)`
-  [Entity Groups: Delete](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete.md)        | `EntityGroups.delete(entity-group, callback)`
-  [Entity Groups: GetEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/get-entities.md)              | `EntityGroups.getEntities(entity, params, callback)`
-  [Entity Groups: AddEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/add-entities.md)| `EntityGroups.addEntities(entity-group, payload, callback)`
-  [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/replace-entities.md)        | `EntityGroups.setEntities(entity-group, payload, callback)`
-  [Entity Groups: DeleteEntities](https://github.com/axibase/atsd-docs/blob/master/api/meta/entity-group/delete-entities.md)        | `EntityGroups.deleteEntities(entity-group, payload, callback)`
+ API method                                                                                                                      | Client function                                                |
+-------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+ **Entities**                                                                                                                    | `Entities(options)`                                            |
+ [Entities: List](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity/list.md)                                      | `Entities.list(params, callback)`                              |
+ [Entity: Get](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity/get.md)                                          | `Entities.get(entity, params, callback)`                       |
+ [Entity: Create or Replace](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity/create-or-replace.md)              | `Entities.create(entity, payload, callback)`                   |
+ [Entity: Update](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity/update.md)                                    | `Entities.update(entity, payload, callback)`                   |
+ [Entity: Delete](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity/delete.md)                                    | `Entities.delete(entity, callback)`                            |
+ **Metrics**                                                                                                                     | `Metrics(options)`                                             |
+ [Metrics: List](https://github.com/axibase/atsd/tree/master/docs/api/meta/metric/list.md)                                       | `Metrics.list(params, callback)`                               |
+ [Metrics: Get](https://github.com/axibase/atsd/tree/master/docs/api/meta/metric/get.md)                                         | `Metrics.get(entity, params, callback)`                        |
+ [Metric: Create or Replace](https://github.com/axibase/atsd/tree/master/docs/api/meta/metric/create-or-replace.md)              | `Metrics.create(metric, payload, callback)`                    |
+ [Metric: Update](https://github.com/axibase/atsd/tree/master/docs/api/meta/metric/update.md)                                    | `Metrics.update(metric, payload, callback)`                    |
+ [Metric: Delete](https://github.com/axibase/atsd/tree/master/docs/api/meta/metric/delete.md)                                    | `Metrics.delete(metric, callback)`                             |
+ **Entity Groups**                                                                                                               | `EntityGroups(options)`                                        |
+ [Entity Groups: List](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/list.md)                           | `EntityGroups.list(params, callback)`                          |
+ [Entity Groups: Get](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/get.md)                             | `EntityGroups.get(entity, params, callback)`                   |
+ [Entity Groups: Create or Replace](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/create-or-replace.md) | `EntityGroups.create(entity-group, payload, callback)`         |
+ [Entity Groups: Update](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/update.md)                       | `EntityGroups.update(entity-group, payload, callback)`         |
+ [Entity Groups: Delete](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/delete.md)                       | `EntityGroups.delete(entity-group, callback)`                  |
+ [Entity Groups: GetEntities](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/get-entities.md)            | `EntityGroups.getEntities(entity, params, callback)`           |
+ [Entity Groups: AddEntities](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/add-entities.md)            | `EntityGroups.addEntities(entity-group, payload, callback)`    |
+ [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/replace-entities.md)    | `EntityGroups.setEntities(entity-group, payload, callback)`    |
+ [Entity Groups: DeleteEntities](https://github.com/axibase/atsd/tree/master/docs/api/meta/entity-group/delete-entities.md)      | `EntityGroups.deleteEntities(entity-group, payload, callback)` |
 
 There is also a number of convenience functions dedicated to making some requests easier to execute. Unlike the functions listed above, they don't replicate the signatures of ATSD API methods.
 
