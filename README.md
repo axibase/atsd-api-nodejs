@@ -8,7 +8,7 @@ The ATSD API Client for Node.js enables developers to easily interact with the A
 This client can be installed using npm:
 
 ```
-$ sudo npm install atsd-api
+$ npm install --save atsd-api
 ```
 
 ## Usage
