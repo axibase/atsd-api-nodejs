@@ -9,8 +9,8 @@
 * [Overview](#overview)
 * [Request Methods](#request-methods)
 * [Installing Node.js Client](#installing-nodejs-client)
-* Usage
-* Examples
+* [Usage](#usage)
+* [Examples](#examples)
 
 ## Overview
 
