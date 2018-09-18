@@ -1,36 +1,45 @@
+# ATSD Node.js Client
+
+![](./images/axibase-and-nodejs.png)
+
 [![CircleCI](https://circleci.com/gh/unrealwork/atsd-api-nodejs.svg?style=svg)](https://circleci.com/gh/unrealwork/atsd-api-nodejs) [![Code Climate](https://codeclimate.com/github/unrealwork/atsd-api-nodejs/badges/gpa.svg)](https://codeclimate.com/github/unrealwork/atsd-api-nodejs) [![codecov](https://codecov.io/gh/unrealwork/atsd-api-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/unrealwork/atsd-api-nodejs)
-# ATSD Node.js API client
 
-The ATSD API Client for Node.js enables developers to easily interact with the Axibase Time Series Database through its [Data](https://github.com/axibase/atsd/tree/master/api/data/README.md) and [Meta](https://github.com/axibase/atsd/tree/master/api/meta/README.md) API.
+## Table of Contents
 
-## Installation
+* [Overview](#overview)
+* [Request Methods](#request-methods)
+* [Installing Node.js Client](#installing-nodejs-client)
+* Usage
+* Examples
 
-This client can be installed using npm:
+## Overview
 
-```
-$ npm install --save atsd-api
-```
+**ATSD Node.js Client** enables developers to interact with [Axibase Time Series Database](https://axibase.com/docs/atsd/) through both [Data](https://axibase.com/docs/atsd/api/data/) and [Meta](https://axibase.com/docs/atsd/api/meta/) APIs.
 
-## Usage
+---
+
+## Implemented Methods
 
 ### ATSD Client
 
-The base class is `ATSDClient`, an instance which can be created using `ATSDClient(options)` where `options` is an object:
+`ATSDClient` is the client base class. Create `ATSDClient` instance using `ATSDClient(options)` where `options` is an object:
 
- Key         | Description                         | Required
--------------|-------------------------------------|-----------------------
- `url`       | full ATSD url with port             | yes
- `user`      | username                            | yes
- `password`  | password                            | yes
- `strictSSL` | requires SSL certificate validation | no, `true` by default
+ Key| Description| Required
+ ---|---|---
+ `url`       | Full ATSD URL with port.             | **Yes**
+ `user`      | Username.                            | **Yes**
+ `password`  | Password.                            | **Yes**
+ `strictSSL` | Require SSL certificate validation. | No.<br> Default setting: `true`.
 
-The purpose of `ATSDClient` is to make general requests to ATSD. It has an asynchronous method `request`, as well as separate methods for each type of request:
+`ATSDClient` contains the asynchronous method `request`:
 
-```
+```javascript
 ATSDClient.request(method, path, params, payload, callback)
 ```
 
-```
+Additionally, `ATSDClient` contains separate methods for each type of request:
+
+```javascript
 ATSDClient.getRequest(path, params, payload, callback)
 ATSDClient.postRequest(path, params, payload, callback)
 ATSDClient.putRequest(path, params, payload, callback)
@@ -38,80 +47,153 @@ ATSDClient.patchRequest(path, params, payload, callback)
 ATSDClient.deleteRequest(path, params, payload, callback)
 ```
 
-The arguments are as follows:
+Arguments are enumerated below:
 
  Argument   | Type                            | Description
 ------------|---------------------------------|-----------------------------------------------------------------------------------
- `method`   | string                          | Request method: `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`.
- `path`     | string                          | Path to be added to base ATSD url, i.e. `metrics` turns into `atsd_server/api/v1/metrics`.
- `params`   | object                          | url query string parameters.
- `payload`  | object                          | json request paylod.
- `callback` | function(error, response, body) | Callback function.
+ `method`   | String                          | Request method: `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`.
+ `path`     | String                          | Path added to base ATSD API URL.<br>For example: `metrics` is appended as follows, `atsd_server/api/v1/metrics`.
+ `params`   | Object                          | URL query string parameters.
+ `payload`  | Object                          | JSON request payload.
+ `callback` | Function(error, response, body) | Callback function.
 
-### API Methods
+`Entities`, `Metrics`, `Properties`, `Alerts`, and `Series` are all subclasses of `ATSDClient` and use the same constructor.
 
-`Entities`, `Metrics`, `Properties`, `Alerts`, and `Series` are all subclasses of `ATSDClient` and use the same constructor. They hold the implementations of [ATSD API methods](https://axibase.com/atsd/api/):
+### [REST API](https://axibase.com/docs/atsd/api/data/)
 
-#### Data API
+The REST API allows you to insert and retrieve data from the database using HTTP requests.
 
- API method                                                                                                   | Client function
---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------
- **Series**                                                                                                   | `Series(options)`
- [Series: Query](https://github.com/axibase/atsd/tree/master/api/data/series/query.md)                   | `Series.query(payload, callback)`
- [Series: Insert](https://github.com/axibase/atsd/tree/master/api/data/series/insert.md)                 | `Series.insert(payload, callback)`
- **Alerts**                                                                                                   | `Alerts(options)`
- [Alerts: Query](https://github.com/axibase/atsd/tree/master/api/data/alerts/query.md)                   | `Alerts.query(payload, callback)`
- [Alerts: Update](https://github.com/axibase/atsd/tree/master/api/data/alerts/update.md)                 | `Alerts.update(payload, callback)`
- [Alerts: History Query](https://github.com/axibase/atsd/tree/master/api/data/alerts/history-query.md)   | `Alerts.historyQuery(payload, callback)`
- [Alerts: Delete](https://github.com/axibase/atsd/tree/master/api/data/alerts/delete.md)                 | `Alerts.delete(payload, callback)`
- **Properties**                                                                                               | `Properties(options)`
- [Properties: Query](https://github.com/axibase/atsd/tree/master/api/data/properties/query.md)           | `Properties.query(payload, callback)`
- [Properties: Type Query](https://github.com/axibase/atsd/tree/master/api/data/properties/type-query.md) | `Properties.typeQuery(payload, callback)`
- [Properties: Insert](https://github.com/axibase/atsd/tree/master/api/data/properties/insert.md)         | `Properties.insert(payload, callback)`
- [Properties: Delete](https://github.com/axibase/atsd/tree/master/api/data/properties/delete.md)         | `Properties.delete(payload, callback)`
- **Messages**                                                                                                 | `Messages(options)`
- [Messages: Query](https://github.com/axibase/atsd/tree/master/api/data/messages/query.md)               | `Messages.query(payload, callback)`
- [Messages: Insert](https://github.com/axibase/atsd/tree/master/api/data/messages/insert.md)             | `Messages.insert(payload, callback)`
+#### Series
 
-#### Meta API
+* [Series: `query`](https://axibase.com/docs/atsd/api/data/series/query.html)<br>
+  Retrieves time series objects for the specified metric, entity, tags, and date range. Applies common time series transformations including aggregation, interpolation, downsampling etc.
 
- API method                                                                                                                      | Client function                                                |
--------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
- **Entities**                                                                                                                    | `Entities(options)`                                            |
- [Entities: List](https://github.com/axibase/atsd/tree/master/api/meta/entity/list.md)                                      | `Entities.list(params, callback)`                              |
- [Entity: Get](https://github.com/axibase/atsd/tree/master/api/meta/entity/get.md)                                          | `Entities.get(entity, params, callback)`                       |
- [Entity: Create or Replace](https://github.com/axibase/atsd/tree/master/api/meta/entity/create-or-replace.md)              | `Entities.create(entity, payload, callback)`                   |
- [Entity: Update](https://github.com/axibase/atsd/tree/master/api/meta/entity/update.md)                                    | `Entities.update(entity, payload, callback)`                   |
- [Entity: Delete](https://github.com/axibase/atsd/tree/master/api/meta/entity/delete.md)                                    | `Entities.delete(entity, callback)`                            |
- **Metrics**                                                                                                                     | `Metrics(options)`                                             |
- [Metrics: List](https://github.com/axibase/atsd/tree/master/api/meta/metric/list.md)                                       | `Metrics.list(params, callback)`                               |
- [Metrics: Get](https://github.com/axibase/atsd/tree/master/api/meta/metric/get.md)                                         | `Metrics.get(entity, params, callback)`                        |
- [Metric: Create or Replace](https://github.com/axibase/atsd/tree/master/api/meta/metric/create-or-replace.md)              | `Metrics.create(metric, payload, callback)`                    |
- [Metric: Update](https://github.com/axibase/atsd/tree/master/api/meta/metric/update.md)                                    | `Metrics.update(metric, payload, callback)`                    |
- [Metric: Delete](https://github.com/axibase/atsd/tree/master/api/meta/metric/delete.md)                                    | `Metrics.delete(metric, callback)`                             |
- **Entity Groups**                                                                                                               | `EntityGroups(options)`                                        |
- [Entity Groups: List](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/list.md)                           | `EntityGroups.list(params, callback)`                          |
- [Entity Groups: Get](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/get.md)                             | `EntityGroups.get(entity, params, callback)`                   |
- [Entity Groups: Create or Replace](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/create-or-replace.md) | `EntityGroups.create(entity-group, payload, callback)`         |
- [Entity Groups: Update](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/update.md)                       | `EntityGroups.update(entity-group, payload, callback)`         |
- [Entity Groups: Delete](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/delete.md)                       | `EntityGroups.delete(entity-group, callback)`                  |
- [Entity Groups: GetEntities](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/get-entities.md)            | `EntityGroups.getEntities(entity, params, callback)`           |
- [Entity Groups: AddEntities](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/add-entities.md)            | `EntityGroups.addEntities(entity-group, payload, callback)`    |
- [Entity Groups: ReplaceEntities](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/replace-entities.md)    | `EntityGroups.setEntities(entity-group, payload, callback)`    |
- [Entity Groups: DeleteEntities](https://github.com/axibase/atsd/tree/master/api/meta/entity-group/delete-entities.md)      | `EntityGroups.deleteEntities(entity-group, payload, callback)` |
+* [Series: `insert`](https://axibase.com/docs/atsd/api/data/series/insert.html)<br>
+  Inserts a timestamped array of numbers for a given series identified by metric, entity, and series tags.
 
-There is also a number of convenience functions dedicated to making some requests easier to execute. Unlike the functions listed above, they don't replicate the signatures of ATSD API methods.
+#### Properties
 
- Client function                                                                                | Equivalent to                                                                                                                          | Note
-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------
+* [Properties: `query`](https://axibase.com/docs/atsd/api/data/properties/query.html)<br>
+  Retrieves property records for the specified filters including type, entity, key, and time range.
+
+* [Properties: `get types`](https://axibase.com/docs/atsd/api/data/properties/list-types.html)<br>
+  Returns an array of property types for the entity.
+
+* [Properties: `insert`](https://axibase.com/docs/atsd/api/data/properties/insert.html)<br>
+  Inserts an array of properties.
+
+* [Properties: `delete`](https://axibase.com/docs/atsd/api/data/properties/delete.html)<br>
+  Deletes property records that match specified filters.
+
+#### Messages
+
+* [Messages: `query`](https://axibase.com/docs/atsd/api/data/messages/query.html)<br>
+  Retrieves message records for the specified filters.
+
+* [Messages: `insert`](https://axibase.com/docs/atsd/api/data/messages/insert.html)<br>
+  Inserts messages.
+
+#### Alerts
+
+* [Alerts: `query`](https://axibase.com/docs/atsd/api/data/alerts/query.html)<br>
+  Retrieves open alerts for specified filters.
+
+* [Alerts: `update`](https://axibase.com/docs/atsd/api/data/alerts/update.html)
+
+* [Alerts: `history query`](https://axibase.com/docs/atsd/api/data/alerts/history-query.html)<br>
+  Retrieves a list of closed alerts matching specified fields.
+
+### [Meta API](https://axibase.com/docs/atsd/api/meta/)
+
+The Meta API allows you to query metadata for metrics, entities, and entity groups in the database.
+
+#### Metrics
+
+* [Metric: `get`](https://axibase.com/docs/atsd/api/meta/metric/get.html)<br>
+  Retrieves properties and tags for the specified metric.
+
+* [Metric: `update`](https://axibase.com/docs/atsd/api/meta/metric/update.html)<br>
+  Updates fields and tags of the specified metric.
+
+* [Metric: `create or replace`](https://axibase.com/docs/atsd/api/meta/metric/create-or-replace.html)<br>
+  Creates a metric with specified fields and tags or replaces the fields and tags of an existing metric.
+
+* [Metric: `delete`](https://axibase.com/docs/atsd/api/meta/metric/delete.html)<br>
+  Deletes the specified metric.
+
+* [Metric: `series tags`](https://axibase.com/docs/atsd/api/meta/metric/series-tags.html)<br>
+  Retrieves unique series tags values for the specified metric.
+
+#### Entities
+
+* [Entity: `get`](https://axibase.com/docs/atsd/api/meta/entity/get.html)<br>
+  Retrieves fields and tags describing the specified entity.
+
+* [Entity: `update`](https://axibase.com/docs/atsd/api/meta/entity/update.html)<br>
+  Updates fields and tags of the specified entity.
+
+* [Entity: `create or replace`](https://axibase.com/docs/atsd/api/meta/entity/create-or-replace.html)<br>
+  Creates an entity with specified fields and tags or replaces the fields and tags of an existing entity.
+
+* [Entity: `delete`](https://axibase.com/docs/atsd/api/meta/entity/delete.html)<br>
+  Deletes the specified entity and removes the entity from any entity groups it belongs to.
+
+* [Entity: `metrics`](https://axibase.com/docs/atsd/api/meta/entity/metrics.html)<br>
+  Retrieves a list of metrics collected by the entity.
+  
+#### Entity Groups
+
+* [Entity Group: `get`](https://axibase.com/docs/atsd/api/meta/entity-group/get.html)<br>
+  Retrieves information about the specified entity group including its name and user-defined tags.
+
+* [Entity Group: `update`](https://axibase.com/docs/atsd/api/meta/entity-group/update.html)<br>
+  Updates fields and tags of the specified entity group.
+
+* [Entity Group: `create or replace`](https://axibase.com/docs/atsd/api/meta/entity-group/create-or-replace.html)<br>
+  Creates an entity group with specified fields and tags or replaces the fields and tags of an existing entity group.
+
+* [Entity Group: `delete`](https://axibase.com/docs/atsd/api/meta/entity-group/delete.html)<br>
+  Deletes the specified entity group.
+
+* [Entity Group: `get entities`](https://axibase.com/docs/atsd/api/meta/entity-group/get-entities.html)<br>
+  Retrieves a list of entities that are members of the specified entity group and are matching the specified filter conditions.
+
+* [Entity Group: `add entities`](https://axibase.com/docs/atsd/api/meta/entity-group/get-entities.html)<br>
+  Retrieves a list of entities that are members of the specified entity group and are matching the specified filter conditions.
+
+* [Entity Group: `set entities`](https://axibase.com/docs/atsd/api/meta/entity-group/set-entities.html)<br>
+  Sets members of the entity group from the specified entity list.
+
+* [Entity Group: `delete entities`](https://axibase.com/docs/atsd/api/meta/entity-group/delete-entities.html)<br>
+  Removes the specified members from the entity group.
+
+### Additional Functions
+
+There are a number of convenience functions dedicated to making certain requests easier to execute. Unlike the functions above, these functions do not replicate the signatures of ATSD API methods.
+
+ Client function| Equivalent Invocation| Note
+---|---|---
  `Series.query(args, callback)`                                                                 | `Series.get(payload, callback)` with `payload` being `{'queries': [args]}`                                                             | `timeFormat` for response is set to `iso`; instead of `{'series': [...]}` returns `[...]`.
- `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` being an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API's `startDate` and `endDate`), or a Date object.
+ `Series.queryDetail(metric, entity, tags, startTime, endTime, callback)`                       | `Series.query(args, callback)` with `args` as an object consisting of `metric`, `entity` etc.                                       | `startTime` and `endTime` can be a timestamp in milliseconds, a string (ATSD API `startDate` and `endDate`), or a Date object.
  `Series.queryStatistic(metric, entity, tags, startTime, endTime, statistic, period, callback)` | Same as above.                                                                                                                          | Same as above.
  `Series.insertData(metric, entity, tags, data, callback)`                                      | `Series.insert(payload, callback)` with `payload` being `[inserts]` where `inserts` is an object consisting of `metric`, `entity` etc. |
 
-For statistics and units used to aggregate the data through series queries, there exist corresponding "enumerations" in class Series: `Series.statistic` and `Series.unit`.
+For statistics and units used to aggregate the data through series queries, corresponding enumerations exist for Series class:
 
-## Setup
+* `Series.statistic`
+* `Series.unit`
+
+---
+
+## Installing Node.js Client
+
+Install **ATSD Node.js Client** with `npm`:
+
+```sh
+npm install --save atsd-api
+```
+
+### Setup
 
 ```javascript
 var atsd_api = require('atsd-api');
@@ -129,9 +211,11 @@ var properties = new atsd_api.Properties(options);
 var alerts     = new atsd_api.Alerts(options);
 ```
 
+---
+
 ## Examples
 
-### Series
+**Series**:
 
 ```javascript
 // inserting series data without versions
@@ -146,7 +230,7 @@ series.insertData('temperature', 'sensor001', {}, [
 );
 ```
 
-```
+```javascript
 > Insert: 200
 ```
 
@@ -162,7 +246,7 @@ series.insertData('temperature', 'sensor001', {}, [
 );
 ```
 
-```
+```javascript
 > Insert with versions: 200
 ```
 
@@ -179,7 +263,7 @@ series.queryDetail(
 );
 ```
 
-```
+```javascript
 > Detail: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50}]}]
 ```
 
@@ -199,7 +283,7 @@ series.query({
 );
 ```
 
-```
+```javascript
 > Detail with versions: [{"entity":"sensor001","metric":"temperature1","tags":{},"type":"HISTORY","aggregate":{"type":"DETAIL"},"data":[{"d":"2015-11-23T08:19:00.000Z","v":51},{"d":"2015-11-23T08:20:00.000Z","v":52},{"d":"2015-11-23T08:21:00.000Z","v":50,"version":{"source":"gateway-1","status":"provisional"}}]}]
 ```
 
@@ -217,11 +301,11 @@ series.queryStatistic(
 );
 ```
 
-```
+```javascript
 > Average: [{"entity":"nurswgvml007","metric":"cpu_busy","tags":{},"type":"HISTORY","aggregate":{"type":"AVG","period":{"count":6,"unit":"HOUR"}},"data":[{"d":"2015-11-22T00:00:00.000Z","v":18.35364243323441},{"d":"2015-11-22T06:00:00.000Z","v":14.058392592592591},{"d":"2015-11-22T12:00:00.000Z","v":13.460140845070423},{"d":"2015-11-22T18:00:00.000Z","v":13.851594955489615}]}]
 ```
 
-### Alerts
+**Alerts**:
 
 ```javascript
 // updating alerts 'evt-1' and 'evt-2'
@@ -246,11 +330,11 @@ alerts.update(
 );
 ```
 
-```
+```javascript
 > Update: 200
 ```
 
-### Properties
+**Properties**:
 
 ```javascript
 // getting property types of entity 'atsd'
@@ -261,7 +345,7 @@ entities.getPropertyTypes('atsd', {}, function (error, _, body) {
 });
 ```
 
-```
+```javascript
 > Property types: ["jfs","system","disk","cpu","java_method","configuration","network"]
 ```
 
@@ -294,12 +378,12 @@ properties.insert(
 );
 ```
 
-```
+```javascript
 > Insert: 200
 > Properties by entity and type: [{"type":"type-1","entity":"entity-1","key":{"server_name":"server","user_name":"system"},"tags":{"name-1":"value-1","name.1":"value-1"},"timestamp":1448122917843}]
 ```
 
-### Series Dump
+**Series Dump**:
 
 ```javascript
 entities.getAll({}, function (error_entities, _, body_entities) {
@@ -335,7 +419,7 @@ entities.getAll({}, function (error_entities, _, body_entities) {
 });
 ```
 
-```
+```javascript
 > First entity: atsd
 > First metric: actions_per_minute
 > Data: [{"d":"2015-11-21T14:00:02.497Z","v":0}]
